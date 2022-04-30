@@ -28,7 +28,69 @@ public class PaymentService {
 	@Produces(MediaType.TEXT_HTML)
 	// for get method use @PathParam instead of @FormParam
 	public String getCustomerDetails(@FormParam("uid") String uid) {
-		String output = paymentObj.getCustomerDetails(uid);
+		String output = paymentObj.showPaymentCusDetails(uid);
 		return output;
 	}
+	
+	// confirm the customer paying amount
+	@POST
+	@Path("/paybill")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	// for get method use @PathParam instead of @FormParam
+	public String confirmBill(
+			@FormParam("uid") String uid,
+			@FormParam("amount") String amount) {
+		
+		if (uid.isEmpty()) {
+			return "Forgot to add uid to button";
+		} else if (amount.isEmpty()) {
+			return "Please Enter the amount to be you pay!";
+		} else if ((Double.parseDouble(amount)) <= 0) {
+			return "Please pay the valid amount";
+		} else {
+			return paymentObj.payTheBill(uid,amount);
+		}
+	}
+	
+	// update the payment billing address on payment
+	@POST
+	@Path("/updateAddress")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	// for get method use @PathParam instead of @FormParam
+	public String updatePaymentAddress(
+			@FormParam("uid") String uid,
+			@FormParam("address") String address) {
+		
+		if (uid.isEmpty()) {
+			return "Forgot to add uid";
+		} else if (address.isEmpty()) {
+			return "Please Enter the new address";
+		} else {
+			return paymentObj.updatePaymentAddress(uid,address);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
