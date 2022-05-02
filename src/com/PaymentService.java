@@ -56,12 +56,15 @@ public class PaymentService {
 	// update the payment billing address on payment
 	@POST
 	@Path("/updateAddress")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
 	// for get method use @PathParam instead of @FormParam
-	public String updatePaymentAddress(
-			@FormParam("uid") String uid,
-			@FormParam("address") String address) {
+	public String updatePaymentAddress(String updateData) {
+		// convert string to json object
+		JsonObject jsonObj = new JsonParser().parse(updateData).getAsJsonObject();
+		
+		String uid = jsonObj.get("uid").getAsString();
+		String address = jsonObj.get("address").getAsString();
 		
 		if (uid.isEmpty()) {
 			return "Forgot to add uid";
@@ -72,25 +75,61 @@ public class PaymentService {
 		}
 	}
 	
+	// Delete the payment history
+	@POST
+	@Path("/deleteHistory")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	// for get method use @PathParam instead of @FormParam
+	public String deletePaymentHistory(
+			@FormParam("pid") String pid) {
+		
+		if (pid.isEmpty()) {
+			return "Forgot to add payment id";
+		} else {
+			return paymentObj.deletePayHistory(pid);
+		}
+	}
 	
+	// Get payment history
+//	@GET
+	@POST
+	// for get methon add /{uid} last of path
+	@Path("/showHistory")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	// for get method use @PathParam instead of @FormParam
+	public String getPaymentHistory(@FormParam("uid") String uid) {
+		String output = paymentObj.showPaymentHistory(uid);
+		return output;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

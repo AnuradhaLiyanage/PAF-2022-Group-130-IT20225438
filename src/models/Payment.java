@@ -1,6 +1,8 @@
 package models;
 
+import java.sql.Array;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -62,8 +64,6 @@ public class Payment {
 			paycus.add(totalpayable);
 			
 
-			
-			// html table complete
 			con.close();
 		}
 		
@@ -332,6 +332,120 @@ public class Payment {
 		
 		if (isUpdated == false) {
 			erroutput = "Error while updating details";
+		}
+		
+		return output;
+	}
+	
+	// ----------------------------------------------------------------------------------------------------- //
+	
+	// delete payment history
+	public String deletePayHistory(String pid) {
+		String output = "";
+		
+		try {
+			// check db connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }
+			
+			
+			String sql = "DELETE FROM payment WHERE PaymentID=?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, pid);
+			int result = stmt.executeUpdate();
+			
+			System.out.print(result);
+			
+			if (result > 0) {
+				output = "<h4>Payment history deleted.</h4>";
+			} else {
+				output = "<h4>Error while deleting payment history.</h4>";
+			}
+
+			
+			
+		} catch (Exception e) {
+			output = "Error while deleting payment history."; 
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+	}
+	
+	// ----------------------------------------------------------------------------------------------------- //
+	
+	// Paymnet History
+	public String showPaymentHistory(String uid) {
+		String output = "";
+		
+		try {
+			// check db connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }
+			
+			String sql = "select * from payment where UserID="+uid+"";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			// table start
+			output = "<table border='1'>"
+					+ 	"<tr>"
+					+ 		"<th>Payment ID</th>"
+					+ 		"<th>User ID</th>"
+					+ 		"<th>Name</th>"
+					+ 		"<th>Account Number</th>"
+					+ 		"<th>Billing Address</th>"
+					+ 		"<th>Email</th>"
+					+ 		"<th>Phone</th>"
+					+ 		"<th>Total</th>"
+					+ 		"<th>Cash</th>"
+					+ 		"<th>Balance</th>"
+					+ 		"<th>Paid Status</th>"
+					+ 		"<th>Expire Date</th>"
+					+ 	"</tr>";
+			
+			Boolean rsCount = rs.next();
+			
+			while(rsCount) {
+				
+				String pid = rs.getString(2);
+				String userid = rs.getString(3);
+				String name = rs.getString(4);
+				int accno = rs.getInt(5);
+				String billaddr = rs.getString(6);
+				String email = rs.getString(7);
+				String phone = rs.getString(8);
+				Double total = rs.getDouble(9);
+				Double cash = rs.getDouble(10);
+				Double balance = rs.getDouble(11);
+				String status = rs.getString(12);
+				String expDate = rs.getString(13);
+				
+				output += "<tr>"
+						+ 	"<td>"+pid+"</td>"
+						+ 	"<td>"+userid+"</td>"
+						+ 	"<td>"+name+"</td>"
+						+ 	"<td>"+accno+"</td>"
+						+ 	"<td>"+billaddr+"</td>"
+						+ 	"<td>"+email+"</td>"
+						+ 	"<td>"+phone+"</td>"
+						+ 	"<td>"+total+"</td>"
+						+ 	"<td>"+cash+"</td>"
+						+ 	"<td>"+balance+"</td>"
+						+ 	"<td>"+status+"</td>"
+						+ 	"<td>"+expDate+"</td>"
+						+ "</tr>";
+				
+				rsCount = rs.next();
+			}
+			
+			
+			output += "</table>";
+
+			
+		} catch (Exception e) {
+			output = "Error while showing payment history."; 
+			System.err.println(e.getMessage());
 		}
 		
 		return output;
