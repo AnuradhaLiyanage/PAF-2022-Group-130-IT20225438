@@ -42,29 +42,25 @@ public class PaymentService {
 			@FormParam("uid") String uid,
 			@FormParam("amount") String amount) {
 		
-		if (uid.isEmpty()) {
-			return "Forgot to add uid to button";
-		} else if (amount.isEmpty()) {
-			return "Please Enter the amount to be you pay!";
-		} else if ((Double.parseDouble(amount)) <= 0) {
-			return "Please pay the valid amount";
-		} else {
+//		if (uid.isEmpty()) {
+//			return "Forgot to add uid to button";
+//		} else if (amount.isEmpty()) {
+//			return "Please Enter the amount to be you pay!";
+//		} else if ((Double.parseDouble(amount)) <= 0) {
+//			return "Please pay the valid amount";
+//		} else {
 			return paymentObj.payTheBill(uid,amount);
-		}
+//		}
 	}
 	
 	// update the payment billing address on payment
-	@POST
+	@PUT
 	@Path("/updateAddress")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
 	// for get method use @PathParam instead of @FormParam
-	public String updatePaymentAddress(String updateData) {
-		// convert string to json object
-		JsonObject jsonObj = new JsonParser().parse(updateData).getAsJsonObject();
-		
-		String uid = jsonObj.get("uid").getAsString();
-		String address = jsonObj.get("address").getAsString();
+	public String updatePaymentAddress(@FormParam("uid") String uid,
+			@FormParam("address") String address) {
 		
 		if (uid.isEmpty()) {
 			return "Forgot to add uid";
@@ -76,7 +72,7 @@ public class PaymentService {
 	}
 	
 	// Delete the payment history
-	@POST
+	@DELETE
 	@Path("/deleteHistory")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)

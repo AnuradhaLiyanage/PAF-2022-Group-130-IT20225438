@@ -310,13 +310,11 @@ public class Payment {
 			Statement stmt1 = con.createStatement();
 			Statement stmt2 = con.createStatement();
 			
-			String sql1 = "update payment set BillingAddress="+address+" where UserID="+uid+"";
-			String sql2 = "update customer set Address="+address+" where UserID="+uid+"";
+			String sql1 = "update payment set BillingAddress='"+address+"' where UserID="+uid+"";
 			
 			int result1 = stmt1.executeUpdate(sql1);
-			int result2 = stmt2.executeUpdate(sql2);
 			
-			if (result1 > 0 && result2 > 0) {
+			if (result1 > 0) {
 				isUpdated = true;
 			} else {
 				isUpdated = false;
