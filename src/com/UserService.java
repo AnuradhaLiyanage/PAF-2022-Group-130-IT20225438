@@ -13,7 +13,9 @@ import models.User;
 public class UserService {
 
 	User userObj=new User();
+	
 	//Loging user
+	
 //		@GET
 		@POST
 		// for get methon add /{uid} last of path
@@ -31,6 +33,7 @@ public class UserService {
 		
 		
 		//ADD user details
+		
 		@POST
 		@Path("/userDetails")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -85,4 +88,20 @@ public class UserService {
 			}
     }
 
+	
+		// delete User Details
+		@POST
+		@Path("/deleteuser")
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+		@Produces(MediaType.TEXT_HTML)
+		// for get method use @PathParam instead of @FormParam
+    	public String DeleteUserDetails(
+    			@FormParam("uid") String uid) {
+			
+			if (uid.isEmpty() ) {
+			return "Delete user details";
+		}  else {
+				return userObj.DeleteUserDetails(uid);
+			}
+		}			
 }
