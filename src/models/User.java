@@ -7,6 +7,7 @@ import java.sql.Statement;
 import database.DBConnect;
 
 public class User {
+	
 //login
 	public String login(String username,String password) {
 		String output="";
@@ -83,6 +84,8 @@ public class User {
 		}
 		return output;
 	}
+	
+	
 
 	public String InsertUserDetails(String uid, String name, String address, int accno, String nic, String email,
 			String phone, String type, String username, String password) {
@@ -100,7 +103,7 @@ public class User {
 		    int rs=stmt.executeUpdate(sql);
 		    
 		    if(rs>0) {
-		    	output="<h4>User Details Successfully Inserted</h4>";
+		    	output="<h4>User Details Successfully Inserted !!!</h4>";
 		    }else {
 		    	output="User Details not Insert";
 		    }
@@ -114,6 +117,8 @@ public class User {
 		return output;
 	}
 
+	
+	
 	public String UpdateUserDetails(String uid, String name, String address, int accno, String nic, String email, String phone,
 			String type, String username, String password) {
 		// TODO Auto-generated method stub
@@ -121,14 +126,13 @@ public class User {
 		boolean  isUpdated=false;
 		
 		try {
-			// check db connection
+			// check database connection
 						Connection con = DBConnect.connect();
 						if(con == null) { return "Error while connecting to the database.."; }
 						
+						//update user details
 						Statement stmt1 = con.createStatement();
-						
-						
-						String sql1 = "update customer set Name="+name+", Address="+address+", AccountNumber="+accno+", NIC="+nic+", Email="+email+", Phone="+phone+", Type="+type+", Username="+username+", password="+password+" where UserID="+uid+"";
+						String sql1 = "update customer set Name='"+name+"', Address='"+address+"', AccountNumber="+accno+", NIC='"+nic+"', Email='"+email+"', Phone="+phone+", Type='"+type+"', Username='"+username+"', password='"+password+"' where UserID="+uid+"";
 						
 						int result = stmt1.executeUpdate(sql1);
 						
@@ -152,4 +156,43 @@ public class User {
 		
 		return output;
 	}
+	
+	
+
+	public String DeleteUserDetails(String uid) {
+		// TODO Auto-generated method stub
+		String output="";
+		boolean  isDeleted=false;
+		try {
+			// check database connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }	
+			
+			//delete user details
+			Statement stmt=con.createStatement();
+			String sql = "DELETE FROM customer WHERE UserID="+uid+"";
+			
+			int result = stmt.executeUpdate(sql);
+			
+			if (result > 0) {
+				isDeleted = true;
+			} else {
+				isDeleted = false;
+			}
+			
+			output = "<h4>User Details successfully Deleted!!!</h4>";
+				
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			output="User Details not Deleted";
+			System.err.println(e.getMessage());
+			
+		}
+		
+	
+		return output;
+	}
+		
 }
