@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import database.DBConnect;
 
 public class Payment {
@@ -78,6 +80,7 @@ public class Payment {
 	// Show customer details
 	public String showPaymentCusDetails(String userID) {
 		String output = "";
+		String output2 = "";
 		
 		ArrayList<String> payCus = new ArrayList<String>();
 		payCus = getCustomerDetails(userID);
@@ -126,12 +129,36 @@ public class Payment {
 					+ "</form>";
 			
 			output += "</table>";
+			
+			// create a json format
+//			String json = "{uid:\""+uid+"\","
+//						 + "name:\""+name+"\","
+//						 + "address:\""+address+"\","
+//						 + "accNumber:\""+accNumber+"\","
+//						 + "nic:\""+nic+"\","
+//						 + "email:\""+email+"\","
+//						 + "phone:\""+phone+"\","
+//						 + "totalpayable:\""+totalpayable+"\"}";
+			
+			JSONObject json = new JSONObject();
+			json.put("uid", uid);
+			json.put("name", name);
+			json.put("address", address);
+			json.put("accNumber", accNumber);
+			json.put("nic", nic);
+			json.put("email", email);
+			json.put("phone", phone);
+			json.put("totalpayable", totalpayable);
+			
+			output2 = "{\"status\":\"success\", \"data\": "+json+"}";
+			
 		} catch (Exception e) {
-			output = "Error while showing the customer details."; 
+			//output = "Error while showing the customer details."; 
+			output2 = "{\"status\":\"Error\", \"data\": \"Error while fetching the details.\"}";
 			System.err.println(e.getMessage());
 		}
 		
-		return output;
+		return output2;
 	}
 	
 	// ----------------------------------------------------------------------------------------------------- //

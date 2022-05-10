@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+
+#pbillh1 {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 48px;
+}
+
+#pbillform {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+#proceed{
+	margin-top: 25px;
+}
+
+.pfd1{
+	margin-top: 15px;
+}
+
+.pfi1{
+	margin-top: 5px;
+}
