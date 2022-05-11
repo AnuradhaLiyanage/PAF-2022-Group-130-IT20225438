@@ -31,12 +31,12 @@ $(document).ready(function() {
 			
 			let totalpayable = parseFloat(result.data.totalpayable);
 			let units = parseInt(result.data.units);
-			$("#pfd1totalpayable").attr("value", totalpayable.toFixed(2)).show();
+			$("#pfd1totalpayable").attr("value", "Rs. "+ totalpayable.toFixed(2)).show();
 			
 			// calc ppu
 			let ppu = totalpayable/units;
 			
-			$("#pfd1ppu").attr("value", ppu.toFixed(2)).show();
+			$("#pfd1ppu").attr("value", "Rs. "+ppu.toFixed(2)).show();
 		}
 	} else if(status == "error") {
 		alert("Error")

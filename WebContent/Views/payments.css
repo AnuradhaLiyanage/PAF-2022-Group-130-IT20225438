@@ -1,6 +1,7 @@
 @charset "ISO-8859-1";
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body{
 	background: url("https://images.unsplash.com/photo-1413882353314-73389f63b6fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
@@ -29,6 +30,46 @@ body{
 	justify-content: center;
 }
 
+.pblefth4{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+}
+
+.pfduppu {
+	width: 150%;
+}
+
+.pfduu {
+	width: 50%;
+	float: right;
+}
+
+.pContainer{
+	padding: 20px;
+	padding-bottom: 0;
+}
+
+.totPayble {
+	background: #f8433a;
+	padding: 20px;
+	padding-top: 10px;
+}
+
+#pfd1totalpayable {
+	background: #f8433a;
+	color: #fff;
+	padding: 0;
+	border: none;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.pfi1:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
 #pbillformright{
 	width: 50%;
 	float:right;
@@ -40,6 +81,21 @@ body{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+#pbillupper{
+	background: #36454F;
+	width: 80%;
+}
+
+.pbupperh4{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	color: white;
+}
+
+.pfd1lu {
+	color: white;
 }
 
 .lower{
@@ -73,9 +129,7 @@ body{
 
 .pfi1{
 	margin-top: 5px;
-}
-
-.pfd1lfsize {
+	cursor: default;
 }
 
 #pfd1accnumber{

@@ -25,7 +25,7 @@
 		<div id="pbillformleft">	
 			<form id="pbill" name="pbill">
 				<div class="container">
-					<h4>Person Details</h4>
+					<h4 class="pblefth4">Person Details</h4>
 					<div class="form-group">
 				    	<label class="pfd1lfsize" for="pfd1name">Name</label>
 				   		<input type="text" class="form-control pfi1" id="pfd1name" readonly="readonly">
@@ -62,9 +62,6 @@
 					    <label class="pfd1lfsize" for="pfd1phone">Phone</label>
 					    <input type="text" class="form-control pfi1" id="pfd1phone" readonly="readonly">
 					</div>
-				
-					<button type="button" class="btn btn-primary" id="pfd1proceed">PROCEED</button>
-					<button type="button" class="btn btn-secondary" id="pfd1cancel">CANCEL</button>
 				</div>
 			</form>
 		</div>
@@ -72,42 +69,45 @@
 		<div id="pbillformright">
 			<div class="upper">
 				<form id="pbillupper" name="pbillupper">
-						<h4>Payment Details</h4>
+					<div class="pContainer">
+						<h4 class="pbupperh4">Payment Summary</h4>
 						
 						<div class="row pfd1" >
-					  <div class="col">
-						  	<div class="form-group">
-							    <label class="pfd1lfsize" for="pfd1ppu">Price Per Unit (PPU)</label>
-							    <input type="text" class="form-control pfi1" id="pfd1ppu" readonly="readonly">
+						  <div class="col">
+							  	<div class="form-group pfduppu">
+								    <label class="pfd1lu" for="pfd1ppu">Price Per Unit (PPU)</label>
+								    <input type="text" class="form-control pfi1" id="pfd1ppu" readonly="readonly">
+								</div>
 							</div>
+							<div class="col">
+									<div class="form-group pfduu">
+							    	<label class="pfd1lu" for="pfd1units">NO Units</label>
+							   		<input type="text" class="form-control pfi1" id="pfd1units" readonly="readonly">
+							  	</div>
+						  </div>
 						</div>
-						<div class="col">
-								<div class="form-group">
-						    	<label class="pfd1lfsize" for="pfd1units">NO Units</label>
-						   		<input type="text" class="form-control pfi1" id="pfd1units" readonly="readonly">
-						  	</div>
-					  </div>
-					</div>
 						
-						<div class="form-group pfd1">
-					    <label class="pfd1lfsize" for="pfd1totalpayable">Total Payable</label>
+						<div class="row pfd1" >
+						  <div class="col">
+							  	<div class="form-group">
+								    <label class="pfd1lu" for="pfd1sDate">Start Date</label>
+								    <input type="text" class="form-control pfi1" id="pfd1sDate" readonly="readonly">
+								</div>
+							</div>
+							<div class="col">
+									<div class="form-group">
+							    	<label class="pfd1lu" for="pfd1eDate">End Date</label>
+							   		<input type="text" class="form-control pfi1" id="pfd1eDate" readonly="readonly">
+							  	</div>
+						  </div>
+						</div>
+						
+					</div>
+					
+						<div class="form-group pfd1 totPayble">
+					    <label class="pfd1lu" for="pfd1totalpayable">Total Payable</label>
 					    <input type="text" class="form-control pfi1" id="pfd1totalpayable" readonly="readonly">
 						</div>
-						
-						<div class="row pfd1" >
-					  <div class="col">
-						  	<div class="form-group">
-							    <label class="pfd1lfsize" for="pfd1sDate">Start Date</label>
-							    <input type="text" class="form-control pfi1" id="pfd1sDate" readonly="readonly">
-							</div>
-						</div>
-						<div class="col">
-								<div class="form-group">
-						    	<label class="pfd1lfsize" for="pfd1eDate">End Date</label>
-						   		<input type="text" class="form-control pfi1" id="pfd1eDate" readonly="readonly">
-						  	</div>
-					  </div>
-					</div>
 					
 				</form>
 			</div>
