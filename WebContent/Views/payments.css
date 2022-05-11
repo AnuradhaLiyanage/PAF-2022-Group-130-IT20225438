@@ -1,20 +1,70 @@
 @charset "ISO-8859-1";
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap');
+
+body{
+	background: url("https://images.unsplash.com/photo-1413882353314-73389f63b6fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+}
+
+.pbc1{
+	background: #fff;
+	height: 100vh;
+	width: 80%;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	position: absolute;
+}
+
 #pbillh1 {
+	font-family: 'Open Sans', sans-serif;
 	text-align: center;
-	margin-top: 20px;
-	font-size: 48px;
 }
 
-#pbillform {
-	width: 40%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 50px;
+#pbillformleft {
+	width: 50%;
+	float:left;
+	height: 99%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-#proceed{
+#pbillformright{
+	width: 50%;
+	float:right;
+	height: 99%;
+}
+
+.upper{
+	height: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lower{
+	border: 1px solid black;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#pfd1proceed{
+	margin-top:25px;
+	width: 49%;
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#pfd1cancel {
 	margin-top: 25px;
+	float: right;
+	width: 49%;
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .pfd1{
@@ -23,4 +73,12 @@
 
 .pfi1{
 	margin-top: 5px;
+}
+
+.pfd1lfsize {
+}
+
+#pfd1accnumber{
+	color: red;
+	font-weight: bold;
 }
