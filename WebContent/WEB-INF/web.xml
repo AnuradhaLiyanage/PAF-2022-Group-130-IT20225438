@@ -16,9 +16,18 @@
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/ElectronicServices/*</url-pattern>
 	</servlet-mapping>
-  
+  	
+  	<servlet>
+  		<servlet-name>PAPI</servlet-name>
+  		<servlet-class>com.servlet.PaymentAPI</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>PAPI</servlet-name>
+  		<url-pattern>/pba</url-pattern>
+  	</servlet-mapping>
+  	
 </web-app>

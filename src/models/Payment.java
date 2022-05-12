@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import database.DBConnect;
 
 public class Payment {
@@ -27,13 +29,18 @@ public class Payment {
 			String nic = null;
 			String email = null;
 			String phone = null;
+			
+			String sDate = null;
+			String eDate=null;
+			String billNumber = null;
+			String units = null;
 			String totalpayable = null;
 			
 			// get details queries and statements
 			Statement stmtc = con.createStatement();
 			Statement stmtb = con.createStatement();
 			String CusD = "select * from customer where UserID='"+userID+"'";
-			String BillD = "select BillAmount from billing where UserID='"+userID+"'";
+			String BillD = "select StartDate, EndDate, BillNumber, NoofUnit, BillAmount from billing where UserID='"+userID+"'";
 			ResultSet crs = stmtc.executeQuery(CusD);
 			ResultSet brs = stmtb.executeQuery(BillD);
 			
@@ -51,7 +58,11 @@ public class Payment {
 			
 			// bill rs
 			if (brs.next()) {
-				totalpayable = Double.toString(brs.getDouble(1));
+				sDate = brs.getString(1);
+				eDate = brs.getString(2);
+				billNumber = Integer.toString(brs.getInt(3));
+				units = Integer.toString(brs.getInt(4));
+				totalpayable = Double.toString(brs.getDouble(5));
 			}
 			
 			paycus.add(uid);
@@ -61,14 +72,20 @@ public class Payment {
 			paycus.add(nic);
 			paycus.add(email);
 			paycus.add(phone);
+			paycus.add(sDate);
+			paycus.add(eDate);
+			paycus.add(billNumber);
+			paycus.add(units);
 			paycus.add(totalpayable);
 			
 
 			con.close();
+			stmtc.close();
+			stmtb.close();
 		}
 		
 		catch (Exception e) {
-			System.out.println("Error while fetching the customer details."); 
+			System.err.println("Error while fetching the customer details."); 
 			System.err.println(e.getMessage());
 		}
 		
@@ -78,6 +95,7 @@ public class Payment {
 	// Show customer details
 	public String showPaymentCusDetails(String userID) {
 		String output = "";
+		String output2 = "";
 		
 		ArrayList<String> payCus = new ArrayList<String>();
 		payCus = getCustomerDetails(userID);
@@ -89,7 +107,11 @@ public class Payment {
 		String nic = payCus.get(4);
 		String email = payCus.get(5);
 		String phone = payCus.get(6);
-		Double totalpayable = Double.parseDouble(payCus.get(7));
+		String sDate = payCus.get(7);
+		String eDate = payCus.get(8);
+		int billNumber = Integer.parseInt(payCus.get(9));
+		int units = Integer.parseInt(payCus.get(10));
+		Double totalpayable = Double.parseDouble(payCus.get(11));
 		
 		try {
 			// prepare view table
@@ -126,12 +148,40 @@ public class Payment {
 					+ "</form>";
 			
 			output += "</table>";
+			
+			// create a json format
+//			String json = "{uid:\""+uid+"\","
+//						 + "name:\""+name+"\","
+//						 + "address:\""+address+"\","
+//						 + "accNumber:\""+accNumber+"\","
+//						 + "nic:\""+nic+"\","
+//						 + "email:\""+email+"\","
+//						 + "phone:\""+phone+"\","
+//						 + "totalpayable:\""+totalpayable+"\"}";
+			
+			JSONObject json = new JSONObject();
+			json.put("uid", uid);
+			json.put("name", name);
+			json.put("address", address);
+			json.put("accNumber", accNumber);
+			json.put("nic", nic);
+			json.put("email", email);
+			json.put("phone", phone);
+			json.put("sDate", sDate);
+			json.put("eDate", eDate);
+			json.put("billNumber",billNumber);
+			json.put("units", units);
+			json.put("totalpayable", totalpayable);
+			
+			output2 = "{\"status\":\"success\", \"data\": "+json+"}";
+			
 		} catch (Exception e) {
-			output = "Error while showing the customer details."; 
+			//output = "Error while showing the customer details."; 
+			output2 = "{\"status\":\"Error\", \"data\": \"Error while fetching the details.\"}";
 			System.err.println(e.getMessage());
 		}
 		
-		return output;
+		return output2;
 	}
 	
 	// ----------------------------------------------------------------------------------------------------- //
