@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../../Views/payments.css"/>
 <script src="../../Components/jquery-3.6.0.min.js"></script>
@@ -111,7 +112,46 @@
 					
 				</form>
 			</div>
-			<div class="lower"></div>
+			<div class="lower">
+				<div style="padding: 20px; width: 85%; margin-top: -50px; margin-right: 60px;">
+					<div class="paymethod">
+						<h4 class="pflpmh4">Payment Method</h4>
+						<img style="margin-top: 10px;" src="https://seeklogo.com/images/V/visa-logo-6F4057663D-seeklogo.com.png" width="70px" />
+						<img style="margin-top: 10px;" src="https://seeklogo.com/images/M/Master_Card-logo-027CB51F96-seeklogo.com.png" width="70px" />
+					</div>
+					<div class="pcardDetails">
+						<form>
+							<div class="form-group">
+								<label for="pcardname">Name on Card</label>
+								<input type="text" class="form-control" id="pcardname" placeholder="Jhon Smith"/>
+							</div>
+							
+							<div class="row pfld">
+								<div class="col">
+									<div class="form-group">
+										<label for="pcardnum">Card Number</label>
+										<input type="text" class="form-control" id="pcardnum" name="pcardnum" onkeypress='return formats(this, event)' onkeyup='return numberValidation(event)' placeholder="0000-0000-0000-0000"/>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="pcardcvv">CVV</label>
+										<input type="text" class="form-control" id="pcardcvv" name="pcardcvv" onkeypress='return formatcvv(this, event)' onkeyup='return numberOnlyCvv(event)' placeholder="***"/>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group pfld">
+								<label for="pcardexpDate">Expiration Date</label>
+								<input type="text" class="form-control" id="pcardexpDate" name="pcardexpDate" onkeypress='return formatexpdate(this, event)' onkeyup='return mmyyformat(event)' placeholder="MM/YY"/>
+							</div>
+							
+							<button type="button" class="btn" id="makepayment">make a payment   <i class="bi bi-arrow-right"></i></button>
+														
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

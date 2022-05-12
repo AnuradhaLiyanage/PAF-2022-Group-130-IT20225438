@@ -45,3 +45,51 @@ $(document).ready(function() {
 	}
 }	
 })
+
+// format card number while enter
+function formats(ele, e) {
+	if(ele.value.length<19){
+      ele.value= ele.value.replace(/\W/gi, '').replace(/(.{4})/g, '$1-');
+      return true;
+    }else{
+      return false;
+    }
+}
+
+function numberValidation(e){
+   e.target.value = e.target.value.replace(/[^\d\- ]/g,'');
+   return false;
+}
+
+// format and validate cvv
+function formatcvv(ele, e) {
+	if(ele.value.length<3){
+		return true;
+	}else {
+		return false;
+	}
+}
+
+function numberOnlyCvv(e) {
+	e.target.value = e.target.value.replace(/[^\d\ ]/g,'');
+   return false;
+}
+
+// format and validate expiration date
+function formatexpdate(ele, e) {
+	if(ele.value.length<5){
+      ele.value= ele.value.replace(/\W/gi, '').replace(/(.{2})/g, '$1/');
+      return true;
+    }else{
+      return false;
+    }
+}
+
+function mmyyformat(e) {
+	e.target.value = e.target.value.replace(/[^\d\/ ]/g,'');
+   return false;
+}
+
+
+
+
