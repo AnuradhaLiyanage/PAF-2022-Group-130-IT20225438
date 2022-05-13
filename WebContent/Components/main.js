@@ -1,11 +1,22 @@
 /**
  Payment
  */
-// send the user if from profile to billbeforepay
+// send the user id from profile to billbeforepay
 $(document).on("click","#sendID",function(event) {
-	if($("#uid").val().trim() != "") {
+	if($("#puid").val().trim() != "") {
 	
 		$("#parseID").submit();
+	
+	} else {
+		alert("Enter the User ID")
+	}
+		
+});
+// send the user id from profile to paymentHistory
+$(document).on("click","#sendIDtoHistory",function(event) {
+	if($("#puid1").val().trim() != "") {
+	
+		$("#parseID1").submit();
 	
 	} else {
 		alert("Enter the User ID")

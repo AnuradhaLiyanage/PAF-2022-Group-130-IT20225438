@@ -11,8 +11,14 @@
 </head>
 <body>
 	<form id="parseID" action="../payment/billbeforepayment.jsp" method="post">
-		<input id="uid" type="text" name="uid" />
+		<input id="puid" type="text" name="puid" />
 		<input type="button" name="sendID" id="sendID" value="PAYMENT" />
 	</form>
+	
+	<form id="parseID1" action="../payment/paymentHistory.jsp" method="post">
+		<input id="puid1" type="text" name="puid" />
+		<input type="button" name="sendIDtoHistory" id="sendIDtoHistory" value="History" />
+	</form>
+	
 </body>
 </html>

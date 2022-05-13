@@ -12,12 +12,12 @@
 <meta charset="ISO-8859-1">
 <title>Bill Verify</title>
 </head>
-<body>
+<body class="pbody">
 	<!-- user id from profile.jsp -->
-	<% String uid = request.getParameter("uid"); %>
+	<% String uid = request.getParameter("puid"); %>
 	<!-- automatic send form for get bill details -->
 	<form id="billBeforePay" name="billBeforePay">
-		<input type="hidden" name="uid" id="uid" value=<%=uid%> />
+		<input type="hidden" name="puid" id="puid" value=<%=uid%> />
 	</form>
 	
 	<div class="pbc1">
@@ -29,39 +29,39 @@
 					<h4 class="pblefth4">Person Details</h4>
 					<div class="form-group">
 				    	<label class="pfd1lfsize" for="pfd1name">Name</label>
-				   		<input type="text" class="form-control pfi1" id="pfd1name" readonly="readonly">
+				   		<input type="text" class="form-control pfi1" id="pfd1name" name="pfd1name" readonly="readonly">
 					</div>
 					
 					<div class="row pfd1" >
 					  <div class="col">
 						  	<div class="form-group">
 							    <label class="pfd1lfsize" for="pfd1accnumber">Account Number</label>
-							    <input type="text" class="form-control pfi1" id="pfd1accnumber" readonly="readonly">
+							    <input type="text" class="form-control pfi1" id="pfd1accnumber" name="pfd1accnumber" readonly="readonly">
 							</div>
 						</div>
 						<div class="col">
 								<div class="form-group">
 						    	<label class="pfd1lfsize" for="pfd1billno">Bill No</label>
-						   		<input type="text" class="form-control pfi1" id="pfd1billno" readonly="readonly">
+						   		<input type="text" class="form-control pfi1" id="pfd1billno" name="pfd1billno" readonly="readonly">
 						  	</div>
 					  </div>
 					</div>
 				
 					<div class="form-group pfd1">
 					    <label class="pfd1lfsize" for="pfd1address">Home Address</label>
-					    <input type="text" class="form-control pfi1" id="pfd1address" readonly="readonly">
+					    <input type="text" class="form-control pfi1" id="pfd1address" name="pfd1address" readonly="readonly">
 					</div>
 					<div class="form-group pfd1">
 					    <label class="pfd1lfsize" for="pfd1nic">National ID</label>
-					    <input type="text" class="form-control pfi1" id="pfd1nic" readonly="readonly">
+					    <input type="text" class="form-control pfi1" id="pfd1nic" name="pfd1nic" readonly="readonly">
 					</div>
 					<div class="form-group pfd1">
 					    <label class="pfd1lfsize" for="pfd1email">Email</label>
-					    <input type="text" class="form-control pfi1" id="pfd1email" readonly="readonly">
+					    <input type="text" class="form-control pfi1" id="pfd1email" name="pfd1email" readonly="readonly">
 					</div>
 					<div class="form-group pfd1">
 					    <label class="pfd1lfsize" for="pfd1phone">Phone</label>
-					    <input type="text" class="form-control pfi1" id="pfd1phone" readonly="readonly">
+					    <input type="text" class="form-control pfi1" id="pfd1phone" name="pfd1phone" readonly="readonly">
 					</div>
 				</div>
 			</form>
@@ -77,13 +77,13 @@
 						  <div class="col">
 							  	<div class="form-group pfduppu">
 								    <label class="pfd1lu" for="pfd1ppu">Price Per Unit (PPU)</label>
-								    <input type="text" class="form-control pfi1" id="pfd1ppu" readonly="readonly">
+								    <input type="text" class="form-control pfi1" id="pfd1ppu" name="pfd1ppu" readonly="readonly">
 								</div>
 							</div>
 							<div class="col">
 									<div class="form-group pfduu">
 							    	<label class="pfd1lu" for="pfd1units">NO Units</label>
-							   		<input type="text" class="form-control pfi1" id="pfd1units" readonly="readonly">
+							   		<input type="text" class="form-control pfi1" id="pfd1units" name="pfd1units" readonly="readonly">
 							  	</div>
 						  </div>
 						</div>
@@ -92,13 +92,13 @@
 						  <div class="col">
 							  	<div class="form-group">
 								    <label class="pfd1lu" for="pfd1sDate">Start Date</label>
-								    <input type="text" class="form-control pfi1" id="pfd1sDate" readonly="readonly">
+								    <input type="text" class="form-control pfi1" id="pfd1sDate" name="pfd1sDate" readonly="readonly">
 								</div>
 							</div>
 							<div class="col">
 									<div class="form-group">
 							    	<label class="pfd1lu" for="pfd1eDate">End Date</label>
-							   		<input type="text" class="form-control pfi1" id="pfd1eDate" readonly="readonly">
+							   		<input type="text" class="form-control pfi1" id="pfd1eDate" name="pfd1eDate" readonly="readonly">
 							  	</div>
 						  </div>
 						</div>
@@ -107,7 +107,7 @@
 					
 						<div class="form-group pfd1 totPayble">
 					    <label class="pfd1lu" for="pfd1totalpayable">Total Payable</label>
-					    <input type="text" class="form-control pfi1" id="pfd1totalpayable" readonly="readonly">
+					    <input type="text" class="form-control pfi1" id="pfd1totalpayable" name="pfd1totalpayable" readonly="readonly">
 						</div>
 					
 				</form>
@@ -116,14 +116,14 @@
 				<div style="padding: 20px; width: 85%; margin-top: -50px; margin-right: 60px;">
 					<div class="paymethod">
 						<h4 class="pflpmh4">Payment Method</h4>
-						<img style="margin-top: 10px;" src="https://seeklogo.com/images/V/visa-logo-6F4057663D-seeklogo.com.png" width="70px" />
-						<img style="margin-top: 10px;" src="https://seeklogo.com/images/M/Master_Card-logo-027CB51F96-seeklogo.com.png" width="70px" />
+						<img style="margin-top: 10px;" src="../../images/visa-logo.png" width="70px" alt="visa" title="visa" />
+						<img style="margin-top: 10px;" src="../../images/Master_Card-logo.png" width="70px" alt="master" title="master" />
 					</div>
 					<div class="pcardDetails">
 						<form>
 							<div class="form-group">
 								<label for="pcardname">Name on Card</label>
-								<input type="text" class="form-control" id="pcardname" placeholder="Jhon Smith"/>
+								<input type="text" class="form-control" id="pcardname" name="pcardname" placeholder="Jhon Smith"/>
 							</div>
 							
 							<div class="row pfld">
@@ -146,6 +146,8 @@
 								<input type="text" class="form-control" id="pcardexpDate" name="pcardexpDate" onkeypress='return formatexpdate(this, event)' onkeyup='return mmyyformat(event)' placeholder="MM/YY"/>
 							</div>
 							
+							<div class="pfld" id="pmethoderror">Error</div>
+							
 							<button type="button" class="btn" id="makepayment">make a payment   <i class="bi bi-arrow-right"></i></button>
 														
 						</form>
@@ -153,7 +155,24 @@
 				</div>
 			</div>
 		</div>
+		<div class="loaderBackgroung" id="loaderBG">
+			<div class="loader" id="loader">
+				<div class="ball"></div>
+				<div class="ball"></div>
+				<div class="ball"></div>
+				<span>Saving...</span>
+			</div>
+			<div class="payment-accept" id="payment-accept">
+				<img class="green-check" src="../../images/success-green-check-mark.png" />
+				<span>
+					Payment<br>accepted
+				</span>
+			</div>
+		</div>
 	</div>
+	
+	
+	
 </body>
 </html>
 
