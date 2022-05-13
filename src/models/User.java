@@ -186,6 +186,7 @@ public class User {
 			}
 			
 			output = "<h4>User Details successfully Deleted!!!</h4>";
+			System.out.println(output);
 				
 			
 			
@@ -216,46 +217,30 @@ public class User {
 			
 			ResultSet rs=stmt.executeQuery(sql);
 			
-			JSONObject json = new JSONObject();
-//			JSONObject jsonAll = new JSONObject();
+			
+
 			JSONArray jsonAll = new JSONArray();
 			
 			int i = 0;
 			
 			
 			while(rs.next()) {
-//				json.put("uid", rs.getString(1));
-//				json.put("name", rs.getString(2));
-//				json.put("address", rs.getString(3));
-//				json.put("accno", rs.getString(4));
-//				json.put("nic", rs.getString(5));
-//				json.put("email", rs.getString(6));
-//				json.put("phone", rs.getString(7));
-//				json.put("type", rs.getString(8));
-//				json.put("username", rs.getString(9));
-//				json.put("password", rs.getString(10));
-//				
-				
-//				
-//			
-//				  
-//			   
-				
-				String uid = rs.getString(1);
-				String name = rs.getString(2);
-				String address = rs.getString(3);
-				String accno = rs.getString(4);
-				String nic = rs.getString(5);
-				String email = rs.getString(6);
-				String phone = rs.getString(7);
-				String type = rs.getString(8);
-				String username = rs.getString(9);
-				String password = rs.getString(10);
 			
-				String 	output1 = "{\"uid\":\""+uid+"\", \"name\":\""+name+"\", \"address\":\""+address+"\", \"accno\":\""+accno+"\", \"nic\":\""+nic+"\", \"email\":\""+email+"\","
-					+ "\"phone\":\""+phone+"\", \"type\":\""+type+"\", \"username\":\""+username+"\", \"password\":\""+password+"\"}";
+			
+				JSONObject json = new JSONObject();
+				json.put("uid", rs.getString(1));
+				json.put("name", rs.getString(2));
+				json.put("address", rs.getString(3));
+				json.put("accno", rs.getString(4));
+				json.put("nic", rs.getString(5));
+				json.put("email", rs.getString(6));
+				json.put("phone", rs.getString(7));
+				json.put("type", rs.getString(8));
+				json.put("username", rs.getString(9));
+				json.put("password", rs.getString(10));
 				
-				jsonAll.put(i,output1);
+				
+				jsonAll.put(i,json);
 				i = i+1;
 				
 				

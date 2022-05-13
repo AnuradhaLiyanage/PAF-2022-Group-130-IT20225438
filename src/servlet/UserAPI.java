@@ -30,7 +30,10 @@ public class UserAPI extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String userId = request.getParameter("uid");
+		String output = cus.DeleteUserDetails(userId);
+		System.out.println(userId);
+		response.getWriter().write(output);
 	}
 
 	
@@ -41,6 +44,7 @@ public class UserAPI extends HttpServlet {
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	}
 
 }
