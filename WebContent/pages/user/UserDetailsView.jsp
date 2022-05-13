@@ -6,59 +6,60 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../../Views/user.css" />
-<script src="../../Components/jquery-3.2.1.min.js"></script>
+<script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
+<script src="../../Components/userJS.js"></script>
 <title>UserView</title>
 </head>
 <style>
-table {
+.usertable  {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-td, th {
+.usertd {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 
-tr:nth-child(even) {
+.usertr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
 <body>
 <h1 class="mb-3 d-flex justify-content-center" > Customer Details</h1>
 <div class=container>
-<table >
-  <tr>
-    <th>UserID</th>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Account Number</th>
-    <th>NIC</th>
-    <th>Email</th>
-    <th>Phone Number</th>
-    <th>Type</th>
-    <th>UserName</th>
-    <th>Password</th>
-    <th>Action</th>
+<table class= "usertable">
+  <tr class="usertr">
+    <th class="usertd">UserID</th>
+    <th class="usertd">Name</th>
+    <th class="usertd">Address</th>
+    <th class="usertd">Account Number</th>
+    <th class="usertd">NIC</th>
+    <th class="usertd">Email</th>
+    <th class="usertd">Phone Number</th>
+    <th class="usertd">Type</th>
+    <th class="usertd">UserName</th>
+    <th class="usertd">Password</th>
+    <th class="usertd">Action</th>
     
   </tr>
-  <tr>
-    <td>1</td>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>785394648</td>
-    <td>6758965v</td>
-    <td>nimal@gmail.com</td>
-    <td>54789345</td>
-    <td>user</td>
-    <td>Germany</td>
-    <td>nimal@12</td>
+  <tr class="usertr">
+    <td class="usertd">1</td>
+    <td class="usertd">Alfreds Futterkiste</td>
+    <td class="usertd">Maria Anders</td>
+    <td class="usertd">785394648</td>
+    <td class="usertd">6758965v</td>
+    <td class="usertd">nimal@gmail.com</td>
+    <td class="usertd">54789345</td>
+    <td class="usertd">user</td>
+    <td class="usertd">Germany</td>
+    <td class="usertd">nimal@12</td>
     
     
-    <td>
+    <td class="usertd">
     <a href="../user/userUpdate.jsp" class=" btn btn-success" role="button">Update</a>
     <button type="submit" class="btn btn-danger" id="remove">Delete</button>
    

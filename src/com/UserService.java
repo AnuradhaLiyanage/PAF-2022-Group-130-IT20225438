@@ -2,6 +2,7 @@ package com;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,6 +28,19 @@ public class UserService {
 									 @FormParam("pass") String password) {
 			
 			String output= userObj.login(username, password);
+			
+			return output;
+		}
+		
+		//Get all users by admin
+		@GET
+		// for get methon add /{uid} last of path
+		@Path("/")
+		@Produces(MediaType.TEXT_HTML)
+		// for get method use @PathParam instead of @FormParam
+		public String getAllUserDetails() {
+			
+			String output= userObj.getalluserdetails();
 			
 			return output;
 		}
