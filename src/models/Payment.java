@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import database.DBConnect;
@@ -269,9 +270,9 @@ public class Payment {
 			String nic = payCus.get(4);
 			String email = payCus.get(5);
 			String phone = payCus.get(6);
-			Double totalpayable = Double.parseDouble(payCus.get(7));
+			Double totalpayable = Double.parseDouble(payCus.get(11));
 			String paidStats = null;
-			String expDate = "2022-04-20";
+			String expDate = payCus.get(8);
 			
 			// generate balance
 			Double cashD = Double.parseDouble(amount);
@@ -300,38 +301,43 @@ public class Payment {
 				isSuccess = false;
 			}
 			
-			output = "<div align='center'>"
-					+"<table border='1'>"
-					+ 	"<tr>"
-					+ 		"<th align='left'>Payment ID</th>"
-					+ 		"<td>"+newPID+"</td>"
-					+ 	"</tr>"
-					+ 	"<tr>"
-					+ 		"<th align='left'>Customer Name</th>"
-					+ 		"<td>"+name+"</td>"
-					+ 	"</tr>"
-					+ 	"<tr>"
-					+ 		"<th align='left'>Customer paid amount</th>"
-					+ 		"<td>"+cashD+"</td>"
-					+ 	"</tr>"
-					+ 	"<tr>"
-					+ 		"<th align='left'>Total payable amount</th>"
-					+ 		"<td>"+totalpayable+"</td>"
-					+ 	"</tr>"
-					+ 	"<tr>"
-					+ 		"<th align='left'>Balance amount</th>"
-					+ 		"<td>"+balanceD+"</td>"
-					+ 	"</tr>"
-					+ "</table>"
-					+ "</div>"
-					+ "<h4 align='center'>Payment Success</h4>"
-					+ "<h6 align='center'>Thank you</h6>";
+//			output = "<div align='center'>"
+//					+"<table border='1'>"
+//					+ 	"<tr>"
+//					+ 		"<th align='left'>Payment ID</th>"
+//					+ 		"<td>"+newPID+"</td>"
+//					+ 	"</tr>"
+//					+ 	"<tr>"
+//					+ 		"<th align='left'>Customer Name</th>"
+//					+ 		"<td>"+name+"</td>"
+//					+ 	"</tr>"
+//					+ 	"<tr>"
+//					+ 		"<th align='left'>Customer paid amount</th>"
+//					+ 		"<td>"+cashD+"</td>"
+//					+ 	"</tr>"
+//					+ 	"<tr>"
+//					+ 		"<th align='left'>Total payable amount</th>"
+//					+ 		"<td>"+totalpayable+"</td>"
+//					+ 	"</tr>"
+//					+ 	"<tr>"
+//					+ 		"<th align='left'>Balance amount</th>"
+//					+ 		"<td>"+balanceD+"</td>"
+//					+ 	"</tr>"
+//					+ "</table>"
+//					+ "</div>"
+//					+ "<h4 align='center'>Payment Success</h4>"
+//					+ "<h6 align='center'>Thank you</h6>";
+			
+			JSONObject json = new JSONObject();
+			json.put("paymentID", newPID);
+			
+			output = "{\"status\":\"success\", \"data\": "+json+"}";
 			
 			stmt.close();
 			con.close();
 			
 		} catch(Exception e) {
-			output = "Error while fetching the customer details and inserting payment details."; 
+			output = "{\"status\":\"success\", \"data\": \"Error while fetching the customer details and inserting payment details.\"}";
 			System.err.println(e.getMessage());
 		}
 		
@@ -436,23 +442,26 @@ public class Payment {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			// table start
-			output = "<table border='1'>"
-					+ 	"<tr>"
-					+ 		"<th>Payment ID</th>"
-					+ 		"<th>User ID</th>"
-					+ 		"<th>Name</th>"
-					+ 		"<th>Account Number</th>"
-					+ 		"<th>Billing Address</th>"
-					+ 		"<th>Email</th>"
-					+ 		"<th>Phone</th>"
-					+ 		"<th>Total</th>"
-					+ 		"<th>Cash</th>"
-					+ 		"<th>Balance</th>"
-					+ 		"<th>Paid Status</th>"
-					+ 		"<th>Expire Date</th>"
-					+ 	"</tr>";
+//			output = "<table border='1'>"
+//					+ 	"<tr>"
+//					+ 		"<th>Payment ID</th>"
+//					+ 		"<th>User ID</th>"
+//					+ 		"<th>Name</th>"
+//					+ 		"<th>Account Number</th>"
+//					+ 		"<th>Billing Address</th>"
+//					+ 		"<th>Email</th>"
+//					+ 		"<th>Phone</th>"
+//					+ 		"<th>Total</th>"
+//					+ 		"<th>Cash</th>"
+//					+ 		"<th>Balance</th>"
+//					+ 		"<th>Paid Status</th>"
+//					+ 		"<th>Expire Date</th>"
+//					+ 	"</tr>";
+			
+			JSONArray jarr = new JSONArray();
 			
 			Boolean rsCount = rs.next();
+			int i = 0;
 			
 			while(rsCount) {
 				
@@ -469,26 +478,45 @@ public class Payment {
 				String status = rs.getString(12);
 				String expDate = rs.getString(13);
 				
-				output += "<tr>"
-						+ 	"<td>"+pid+"</td>"
-						+ 	"<td>"+userid+"</td>"
-						+ 	"<td>"+name+"</td>"
-						+ 	"<td>"+accno+"</td>"
-						+ 	"<td>"+billaddr+"</td>"
-						+ 	"<td>"+email+"</td>"
-						+ 	"<td>"+phone+"</td>"
-						+ 	"<td>"+total+"</td>"
-						+ 	"<td>"+cash+"</td>"
-						+ 	"<td>"+balance+"</td>"
-						+ 	"<td>"+status+"</td>"
-						+ 	"<td>"+expDate+"</td>"
-						+ "</tr>";
+//				output += "<tr>"
+//						+ 	"<td>"+pid+"</td>"
+//						+ 	"<td>"+userid+"</td>"
+//						+ 	"<td>"+name+"</td>"
+//						+ 	"<td>"+accno+"</td>"
+//						+ 	"<td>"+billaddr+"</td>"
+//						+ 	"<td>"+email+"</td>"
+//						+ 	"<td>"+phone+"</td>"
+//						+ 	"<td>"+total+"</td>"
+//						+ 	"<td>"+cash+"</td>"
+//						+ 	"<td>"+balance+"</td>"
+//						+ 	"<td>"+status+"</td>"
+//						+ 	"<td>"+expDate+"</td>"
+//						+ "</tr>";
 				
+				JSONObject obj =  new JSONObject();
+				obj.put("pid", pid);
+				obj.put("userid", userid);
+				obj.put("name", name);
+				obj.put("accno", accno);
+				obj.put("billaddr", billaddr);
+				obj.put("email", email);
+				obj.put("phone", phone);
+				obj.put("total", total);
+				obj.put("cash", cash);
+				obj.put("balance", balance);
+				obj.put("status", status);
+				obj.put("expDate", expDate);
+				
+				jarr.put(i, obj);
+				
+				i = i + 1;
 				rsCount = rs.next();
 			}
 			
+			output = "{\"status\":\"success\",\"data\":"+jarr+"}";
 			
-			output += "</table>";
+			
+//			output += "</table>";
 
 			
 		} catch (Exception e) {
