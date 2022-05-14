@@ -189,9 +189,9 @@ $("#makepayment").click(function() {
 						let cardNumber = $("#pcardnum").val();
 						let cardCvv = $("#pcardcvv").val();
 						let cardExpD = $("#pcardexpDate").val();
-						let insert = "insert";
+						let paymentfuncpages = "insertpaymentdetails";
 						
-						var dataset = { uid, amount, cardName, cardNumber, cardCvv, cardExpD, insert };
+						var dataset = { uid, amount, cardName, cardNumber, cardCvv, cardExpD, paymentfuncpages };
 						
 						$.ajax(
 							{

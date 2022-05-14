@@ -33,8 +33,9 @@ $(document).on("click", "#sendidtoupdate", (e) => {
 		
 		let uid = $("#puid2").val();
 		let address = $("#pbillingAddress").val();
+		let paymentfuncpages = "updatebillingaddress";
 		
-		let dataset = {uid, address};
+		let dataset = {uid, address, paymentfuncpages};
 		console.log(dataset)
 		
 		$.ajax(

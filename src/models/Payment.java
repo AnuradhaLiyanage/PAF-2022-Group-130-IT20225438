@@ -23,7 +23,7 @@ public class Payment {
 			Connection con = DBConnect.connect();
 			
 			// declare open variables
-			String uid = null;
+			String uid =null;
 			String name = null;
 			String address = null;
 			String accNumber = null;
@@ -47,7 +47,7 @@ public class Payment {
 			
 			// customer rs
 			if(crs.next()) {
-				uid = crs.getString(1);
+				uid = String.valueOf(crs.getInt(1));
 				name = crs.getString(2);
 				address = crs.getString(3);
 				accNumber = Integer.toString(crs.getInt(4)); 
@@ -176,6 +176,8 @@ public class Payment {
 			
 			output2 = "{\"status\":\"success\", \"data\": "+json+"}";
 			
+			System.out.println(output2);
+			
 		} catch (Exception e) {
 			//output = "Error while showing the customer details."; 
 			output2 = "{\"status\":\"Error\", \"data\": \"Error while fetching the details.\"}";
@@ -263,7 +265,7 @@ public class Payment {
 			ArrayList<String> payCus = new ArrayList<String>();
 			payCus = getCustomerDetails(userID);
 			// demostrate List
-			String curruntUid = payCus.get(0);
+			int curruntUid =Integer.parseInt( payCus.get(0));
 			String name = payCus.get(1);
 			String billAddress = payCus.get(2);
 			int accNumber = Integer.parseInt(payCus.get(3)); 

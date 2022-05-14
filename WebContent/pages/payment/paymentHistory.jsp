@@ -18,10 +18,11 @@
 	<!-- automatic send form for get bill details -->
 	<form id="billBeforePay" name="billBeforePay">
 		<input type="hidden" name="parseuidfH" id="parseuidfH" value=<%=uid%> />
+		<input id="paymentfuncpages" name="paymentfuncpages" type="hidden" value="paymentHistory" />
 		<input type="hidden" name="puid" id="puid"/>
 	</form>
 	
-	<table class="table" style="background: #fff;">
+	<table class="table historytbl" style="background: #fff;">
 	  <thead class="thead-dark" style="background: black; color:white;">
 	    <tr>
 	      <th scope="col">Payment ID</th>
