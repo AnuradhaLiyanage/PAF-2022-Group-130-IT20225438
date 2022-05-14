@@ -1,16 +1,22 @@
 //Get All user Details
 $(document).ready(function(){
-	$.ajax(
-		{
-			url:	"/PAF-2022-Group-130/UserAPI",
-			type:	"GET",
-			dataType:	"text",
-			complete:	function(response,status){
-				OnComplete(response.responseText,status);
-			}
-		}
-	)
 	
+	$("#signuperror").hide();
+	
+	// load on UserDetailsView.jsp page only
+		if($("#pageselector").val().trim() === "userdetailspage") {
+			$.ajax(
+			{
+				url:	"/PAF-2022-Group-130/UserAPI",
+				type:	"GET",
+				dataType:	"text",
+				complete:	function(response,status){
+					OnComplete(response.responseText,status);
+				}
+			}
+		)	
+	}
+	// view oncomplete
 	function OnComplete(response,status) {
 		if(status == "success"){
 			var result = JSON.parse(response);
@@ -104,8 +110,6 @@ $(document).ready(function(){
 					row.appendChild(updateForm);
 					
 					tBody.appendChild(row);
-					
-					
 				})
 			}
 			//Display error message
@@ -116,6 +120,7 @@ $(document).ready(function(){
 	}
 	
 })
+
 //send uid for update
 function senduidForUpdate(){
 	$("#updateform").submit();
@@ -123,14 +128,20 @@ function senduidForUpdate(){
 
 //delete user function
 function DeleteRow(uid){
-	var deleteData = {uid};
+	
+	let method = "delete";
+	
+	var deleteData = { uid, method};
+	
+	
+	
 	console.log(deleteData)
 	$.ajax(
 		{
 			url:	"/PAF-2022-Group-130/UserAPI",
 			type:	"POST",
 			data:	deleteData,
-			dataType:	"JSON",
+			dataType:	"json",
 			complete:	function(response,status){
 				OnDelete(response.responseText,status);
 			}
@@ -138,86 +149,120 @@ function DeleteRow(uid){
 			
 	)
 	function OnDelete(responseText,status){
-		
-		
+		if(status === "success") {
 			alert ("successfull deleted!!!")
-			window.location.reload();
-	
+			window.location.reload();	
+		}
 	}
-}
+}	
 
-
-
-$(document).ready(function(){
+$(document).ready(() => {
 	
-
-//function for button Create Account
-$("#createaccount").click(function() {
-	alert ("ok")
-	let username = document.getElementById("cusname");
-	let useraddress = document.getElementById("cusaddress");
-	let useraccno = document.getElementById("cusaccno");
-	let usernic = document.getElementById("cusnic");
-	let useremail = document.getElementById("cusemail");
-	let userphone = document.getElementById("cusphone");
-	let usertype = document.getElementById("custype");
-	let Uusername = document.getElementById("cususername");
-	let Upassword = document.getElementById("cuspassword");
-	
-	
-	// Signup form validations
-	if(username.value === "") {
-		$("#signuperror").text("Enter Your Name").show();
-		username.classList.add("pmf")
-		username.focus();
-	}
-	else if(useraddress.value === "") {
-		username.classList.remove("pmf")
-		useraddress.classList.add("pmf")
-		useraddress.focus();
-		$("#signuperror").text("Enter Your Address").show();
-	}
-    else if(useraccno.value === "") {
-		useraddress.classList.remove("pmf")
-		useraccno.classList.add("pmf")
-		useraccno.focus();
-		$("#signuperror").text("Enter Your AccountNumber").show();
-	}
-	else if(usernic.value === "") {
-		useraccno.classList.remove("pmf")
-		usernic.classList.add("pmf")
-		usernic.focus();
-		$("#signuperror").text("Enter Your NIC number").show();
-	}
-	else if(useremail.value === "") {
-		usernic.classList.remove("pmf")
-		useremail.classList.add("pmf")
-		useremail.focus();
-		$("#signuperror").text("Enter Your Email address").show();
-	}
-	else if(userphone.value === "") {
-		useremail.classList.remove("pmf")
-		userphone.classList.add("pmf")
-		userphone.focus();
-		$("#signuperror").text("Enter Your Phone Number").show();
-	}
-	else if(Uusername.value === "") {
-		useremail.classList.remove("pmf")
-		Uusername.classList.add("pmf")
-		Uusername.focus();
-		$("#signuperror").text("Enter Your Username").show();
-	}
-	else if(Upassword.value === "") {
-		Uusername.classList.remove("pmf")
-		Upassword.classList.add("pmf")
-		Upassword.focus();
-		$("#signuperror").text("Enter Your Password").show();
-	}
-	
- })
-	
+	//function for button Create Account
+	$("#createaccount").click(function() {
+		let username = document.getElementById("cusname");
+		let useraddress = document.getElementById("cusaddress");
+		let useraccno = document.getElementById("cusaccno");
+		let usernic = document.getElementById("cusnic");
+		let useremail = document.getElementById("cusemail");
+		let userphone = document.getElementById("cusphone");
+		let usertype = document.getElementById("custype");
+		let Uusername = document.getElementById("cususername");
+		let Upassword = document.getElementById("cuspassword");
+		
+		
+		// Signup form validations
+		if(username.value === "") {
+			$("#signupnameerror").text("Enter Your Name").show();
+			username.classList.add("pmf")
+			username.focus();
+		}
+		else if(useraddress.value === "") {
+			$("#signupnameerror").hide();
+			username.classList.remove("pmf")
+			useraddress.classList.add("pmf")
+			useraddress.focus();
+			$("#signupaddresserror").text("Enter Your Address").show();
+		}
+	    else if(useraccno.value === "") {
+		$("#signupaddresserror").hide();
+			useraddress.classList.remove("pmf")
+			useraccno.classList.add("pmf")
+			useraccno.focus();
+			$("#signupaccnoerror").text("Enter Your AccountNumber").show();
+		}
+		else if(usernic.value === "") {
+			$("#signupaccnoerror").hide();
+			useraccno.classList.remove("pmf")
+			usernic.classList.add("pmf")
+			usernic.focus();
+			$("#signupnicerror").text("Enter Your NIC number").show();
+		}
+		else if(useremail.value === "") {
+			$("#signupnicerror").hide();
+			usernic.classList.remove("pmf")
+			useremail.classList.add("pmf")
+			useremail.focus();
+			$("#signupemailerror").text("Enter Your Email address").show();
+		}
+		else if(userphone.value === "") {
+			$("#signupemailerror").hide();
+			useremail.classList.remove("pmf")
+			userphone.classList.add("pmf")
+			userphone.focus();
+			$("#signuppnumerror").text("Enter Your Phone Number").show();
+		}
+		else if (usertype.value === "") {
+			$("#signuppnumerror").hide();
+			userphone.classList.remove("pmf")
+			usertype.classList.add("pmf")
+			usertype.focus();
+			$("#signuptypeerror").text("Select user typer").show();
+		}
+		else if(Uusername.value === "") {
+			$("#signuptypeerror").hide();
+			usertype.classList.remove("pmf")
+			Uusername.classList.add("pmf")
+			Uusername.focus();
+			$("#signupunameerror").text("Enter Your Username").show();
+		}
+		else if(Upassword.value === "") {
+			$("#signupunameerror").hide();
+			Uusername.classList.remove("pmf")
+			Upassword.classList.add("pmf")
+			Upassword.focus();
+			$("#signuppasserror").text("Enter Your Password").show();
+		} else {
+			$("#signuppasserror").hide();
+			
+			// send data to servlet
+			$.ajax(
+				{
+					url:	"/PAF-2022-Group-130/UserAPI",
+					type:	"POST",
+					dataType:	"text",
+					data:	$("#insertUserDetailsForm").serialize(),
+					complete:	(response, status) => {
+						onInsertComplete(response.responseText, status);
+					}
+				}
+			)
+		}
+		
+	 })
 })
 
+// if insert successful
+function onInsertComplete(responseText, status) {
+	if(status == "success") {
+		var result = JSON.parse(responseText);
+		if (result.status === "success") {
+			console.log(result.data);
+		} else {
+			console.log(result.data);
+		}
+	}
+}
 
 
 
