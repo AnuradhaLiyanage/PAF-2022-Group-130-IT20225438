@@ -110,6 +110,7 @@ public class PaymentAPI extends HttpServlet {
 		//check which page loaded
 		String method = json.getString("paymentfuncpages");
 		
+		// parameters
 		String uidtobeupdate = json.getString("uid");
 		String billAddress = json.getString("address");
 		
@@ -124,8 +125,24 @@ public class PaymentAPI extends HttpServlet {
 		
 	}
 
+	// clear history
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Convert request body to json
+		String jsonString = inputStreamToString(request.getInputStream());
+		JSONObject json = new JSONObject(jsonString);
+		
+		//check which page loaded
+		String method = json.getString("paymentfuncpages");
+		
+		//parameters
+		String pid = json.getString("pid");
+		
+		//clear history
+		if(method.equals("delete")) {
+			System.out.println(pid);
+			String output = paymentObj.deletePayHistory(pid);
+			response.getWriter().write(output);
+		}
 	}
 
 }

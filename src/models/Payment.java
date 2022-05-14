@@ -55,6 +55,8 @@ public class Payment {
 				email = crs.getString(6);
 				phone = crs.getString(7);
 				
+				
+				
 			}
 			
 			// bill rs
@@ -402,15 +404,15 @@ public class Payment {
 			System.out.print(result);
 			
 			if (result > 0) {
-				output = "<h4>Payment history deleted.</h4>";
+				output = "{\"status\":\"success\", \"data\":\"Delete Success\"}";
 			} else {
-				output = "<h4>Error while deleting payment history.</h4>";
+				output = "{\"status\":\"error\", \"data\":\"Delete Unsuccess\"}";
 			}
 
 			
 			
 		} catch (Exception e) {
-			output = "Error while deleting payment history."; 
+			output = "{\"status\":\"error\", \"data\":\"Delete Unsuccess\"}";
 			System.err.println(e.getMessage());
 		}
 		

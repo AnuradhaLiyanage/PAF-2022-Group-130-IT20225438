@@ -4,7 +4,7 @@
 // send the user id from profile to billbeforepay
 $(document).on("click","#sendID",function(event) {
 	if($("#puid").val().trim() != "") {
-	
+		
 		$("#parseID").submit();
 	
 	} else {

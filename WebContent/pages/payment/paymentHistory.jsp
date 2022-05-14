@@ -12,7 +12,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="historyBody">
 	<!-- user id from profile.jsp -->
 	<% String uid = request.getParameter("puid"); %>
 	<!-- automatic send form for get bill details -->
@@ -21,6 +21,8 @@
 		<input id="paymentfuncpages" name="paymentfuncpages" type="hidden" value="paymentHistory" />
 		<input type="hidden" name="puid" id="puid"/>
 	</form>
+	
+	<h1 class="phistoryTitle">Payment History</h1>
 	
 	<table class="table historytbl" style="background: #fff;">
 	  <thead class="thead-dark" style="background: black; color:white;">
@@ -37,6 +39,7 @@
 	      <th scope="col">Balance</th>
 	      <th scope="col">Paid Status</th>
 	      <th scope="col">Expire Date</th>
+	      <th scope="col">Action</th>
 	    </tr>
 	  </thead>
 	  <tbody id="historyTbody">

@@ -100,6 +100,16 @@ function onHistoryLoaded(response, status) {
 		let exp = document.createElement('td');
 		exp.innerHTML = data.expDate;
 		
+		let pidval = data.pid;
+		
+		let deletebtn = document.createElement("input");
+		deletebtn.value = "clear";
+		deletebtn.classList.add("btn", "btn-clear", "m-2");
+		deletebtn.type = "button";
+		deletebtn.onclick = (e,pidval) => {
+			clearHistory(data.pid);
+		}
+		
 		row.appendChild(pid);
 		row.appendChild(userid);
 		row.appendChild(name);
@@ -112,6 +122,7 @@ function onHistoryLoaded(response, status) {
 		row.appendChild(balance);
 		row.appendChild(status);
 		row.appendChild(exp);
+		row.appendChild(deletebtn);
 		
 		tbody.appendChild(row);
 		
@@ -290,6 +301,59 @@ function mmyyformat(e) {
 	e.target.value = e.target.value.replace(/[^\d\/ ]/g,'');
    return false;
 }
+
+//Clear payment history(delete function)
+function clearHistory(pid) {
+	let paymentfuncpages = "delete";
+	
+	let deleteThis = {pid, paymentfuncpages}
+	
+	console.log(deleteThis);
+	
+	$.ajax(
+		{
+			url:	"/PAF-2022-Group-130/PaymentAPI",
+			type: "DELETE",
+			dataType: "json",
+			data: JSON.stringify(deleteThis),
+			complete:	(response, status) => {
+				deleteComplete(response.responseText, status);
+			}
+		}
+	)
+}
+
+// delete completed
+function deleteComplete(responseText, status) {
+	if(status === "success") {
+		var result = JSON.parse(responseText);
+		console.log(result);
+		if(result.status === "success") {
+			alert(result.data);
+			window.location.reload(true);
+		} else {
+			alert(result.data);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 
