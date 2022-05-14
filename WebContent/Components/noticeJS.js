@@ -3,8 +3,7 @@
  */
  $(document).ready(function()
 	{
-	 $("#alertSuccess").hide();
-	 $("#alertError").hide();
+	 $("#error").hide();
 	 	 
 	 $.ajax(
 		{
@@ -14,7 +13,7 @@
 			dataType: "text",
 			complete: function(response,status)
 			{
-				if($("#findpage").val()=="noticeUpdate"){
+				if($("#findpage1").val()=="noticeUpdate"){
 					LoadUpdatedetails(response.responseText,status)
 				}else{
 					onComplete(response.responseText,status)
@@ -249,7 +248,9 @@ $(document).ready( ()=> {
 
 })
 
-//function for button make a payment
+$(document).ready(() => {
+	
+	//function for button make a payment
 $("#noticebtnSave").click(function() {
 	let noticeuid = document.getElementById("noticeuid");
 	let noticeusername = document.getElementById("noticeusername");
@@ -258,9 +259,11 @@ $("#noticebtnSave").click(function() {
 	let noticetype = document.getElementById("noticetype");
 	let noticemsg = document.getElementById("noticemsg");
 	
+	$("#error").show()
+	
 	// payment method form validations
 	if(noticeuid.value === "") {
-		$("#pmethoderror").text("Enter User ID").show();
+		$("#error").text("Enter User ID").show();
 		noticeuid.classList.add("pmf")
 		noticeuid.focus();
 	}
@@ -268,112 +271,64 @@ $("#noticebtnSave").click(function() {
 		noticeuid.classList.remove("pmf")
 		noticeusername.classList.add("pmf")
 		noticeusername.focus();
-		$("#pmethoderror").text("Enter User Name").show();
+		$("#error").text("Enter User Name").show();
 	}
 	else if(noticedate.value === "") {
 		noticeusername.classList.remove("pmf")
 		noticedate.classList.add("pmf")
 		noticedate.focus();
-		$("#pmethoderror").text("Enter Date").show();
+		$("#error").text("Enter Date").show();
 	}
 	else if(noticetime.value === "") {
 		noticedate.classList.remove("pmf")
 		noticetime.classList.add("pmf")
 		noticetime.focus();
-		$("#pmethoderror").text("Enter Time").show();
+		$("#error").text("Enter Time").show();
 	}
 	else if(noticetype.value === "") {
 		noticetype.classList.add("pmf")
 		noticetype.focus();
-		$("#pmethoderror").text("Enter Notice Type").show();
+		$("#error").text("Enter Notice Type").show();
 	}
 	else if(noticemsg.value === "") {
 		noticetype.classList.remove("pmf")
 		noticemsg.classList.add("pmf")
 		noticemsg.focus();
-		$("#pmethoderror").text("Enter Notice Description").show();
-	}
-	else if(pcardexpDate.value.length === 5) {
-
-			if(pcardexpDate.value.charAt(0) != "0" && pcardexpDate.value.charAt(0) != "1") {
-				pcardexpDate.focus();
-				$("#pmethoderror").text("Wrong month").show();
-			}
-			else{
-				if(pcardexpDate.value.charAt(0) === "1" && pcardexpDate.value.charAt(1) > "2") {
-					pcardexpDate.focus();
-					$("#pmethoderror").text("Wrong month").show();
-				}
-				else{
-					if(pcardexpDate.value.charAt(3) <"2" || pcardexpDate.value.charAt(4) <"2") {
-						pcardexpDate.focus();
-						$("#pmethoderror").text("Wrong year").show();
-					}
-					else {
-						pcardexpDate.classList.remove("pmf")
-						$("#pmethoderror").hide();
-						// show saving loader
-						$("#loaderBG").show();
-						// get values by id
-						let uid = $("#noticeuid").val();
-						let cardusername = $("#noticeusername").val();
-						let carddate = $("#noticedate").val();
-						let cardtime = $("#noticetime").val();
-						let cardtype = $("#noticetype").val();
-						let cardnotice = $("#noticemsg").val();
-						let insert = "insert";
-						
-						var dataset = { uid, cardusername, carddate, cardtime, cardtype, cardnotice, insert };
-						
-						$.ajax(
-							{
-								url:	"/PAF-2022-Group-130/NoticeAPI",
-								type:	"POST",
-								data:	dataset,
-								dataType:	"JSON",
-								complete:	function(response, status) {
-									onInsertComplete(response.responseText, status);
-								}
-							}
-						)
-						
-						function onInsertComplete(response, status) {
-							if(status === "success") {
-								var result = JSON.parse(response);
-								console.log(result);
-								if(result.status.trim() === "success") {
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										$("#loader").hide();
-										$("#payment-accept").show();
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2000); // 👈️ time in milliseconds
-									
-									// redirecting to home page after payment success;
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										window.location = "../../";
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2500); // 👈️ time in milliseconds
-
-								}
-								
-								else {
-									// payment unsuccess
-								}
-							}
-						}
-					}
+		$("#error").text("Enter Notice Description").show();
+	} else {
+		// no errors
+		noticemsg.classList.remove("pmf")
+		$("#error").hide();
+		
+		// data inserting
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/NoticeAPI",
+				type: "POST",
+				data: $("#insertNotices").serialize(),
+				dataType: "text",
+				complete: function(response, status) {
+					onInsertComplete(response.responseText, status);
 				}
 			}
-			
+		)
+		
+		// when insert request complete
+		function onInsertComplete(responseText, status) {
+			if(status == "success") {
+				var result = JSON.parse(responseText);
+				if (result.status == "success") {
+					alert(result.data);
+					window.location = "../../";
+				} else {
+					alert(result.data);
+				}
+			}
+		}
+		
 	}
+	
+})
 	
 })
 	

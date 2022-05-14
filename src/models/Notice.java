@@ -100,14 +100,14 @@ public class Notice {
 			int rs=stmt.executeUpdate(sql);
 			
 			if(rs>0) {
-				output="<h4>Notice Details Successfully Inserted!</h4>";
+				output = "{\"status\":\"success\", \"data\":\"Notice Details Successfully Inserted!\"}";
 			} else {
-				output="<h4>Notice Details Not Inserted!</h4>";
+				output = "{\"status\":\"success\", \"data\":\"Notice Details Not Inserted!!\"}";
 			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			output="Notice Details Not Inserted!";
+			output = "{\"status\":\"success\", \"data\":\"Notice Details Not Inserted!!\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;

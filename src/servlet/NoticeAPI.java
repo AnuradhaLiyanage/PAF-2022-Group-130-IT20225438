@@ -31,11 +31,28 @@ public class NoticeAPI extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String UserID = request.getParameter("noticeUserid");
-		String output = notice.noticeDetails(UserID);
-		System.out.println(UserID);
-		response.getWriter().write(output);
+		//check page
+		String page = request.getParameter("findpage");
 		
+		if(page.equals("noticeinsertpage")) {
+			// insert details
+			String noticeuid = request.getParameter("noticeuid");
+			String noticeusername = request.getParameter("noticeusername");
+			String noticedate = request.getParameter("noticedate");
+			String noticetime = request.getParameter("noticetime");
+			String noticetype = request.getParameter("noticetype");
+			String noticemsg = request.getParameter("noticemsg");
+			
+			String output = notice.InsertNotice(noticeuid, noticeusername, noticedate, noticetime, noticetype, noticemsg);
+			response.getWriter().write(output);
+			
+		} else if(page.equals("singlenoticedetails")) {
+			// get details
+			String UserID = request.getParameter("noticeUserid");
+			String output = notice.noticeDetails(UserID);
+			System.out.println(UserID);
+			response.getWriter().write(output);
+		}
 	}
 
 

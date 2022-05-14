@@ -25,8 +25,8 @@
 	
 	<%String noticeUserid = request.getParameter("noticeUserid"); %>
 	<form id="sendNoticeID">
-	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=noticeUserid %>>
-		
+	<input type="hidden" name="findpage" id="findpage" value="singlenoticedetails" />
+	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=noticeUserid %>>	
 	</form>
 	
 	

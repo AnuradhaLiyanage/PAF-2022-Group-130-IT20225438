@@ -22,8 +22,9 @@
 	
 	<%String uidtobeup = request.getParameter("uidtobeupdate"); %>
 	<form id="sendNoticeID">
+	<input type="hidden" name="findpage" id="findpage" value="singlenoticedetails" />
 	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=uidtobeup%>>
-	<input type="hidden" name="findpage" id="findpage" value="noticeUpdate">
+	<input type="hidden" name="findpage1" id="findpage1" value="noticeUpdate">
 		
 	</form>
 	
