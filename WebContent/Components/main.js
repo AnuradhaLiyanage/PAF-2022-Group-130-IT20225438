@@ -23,6 +23,42 @@ $(document).on("click","#sendIDtoHistory",function(event) {
 	}
 		
 });
+// update billing address
+$(document).on("click", "#sendidtoupdate", (e) => {
+	if($("#puid2").val().trim() == "") {
+		alert("Enter the User ID");
+	} else if($("#pbillingAddress").val().trim() == "") {
+		alert("Enter the billing Address to be update");
+	} else {
+		
+		let uid = $("#puid2").val();
+		let address = $("#pbillingAddress").val();
+		
+		let dataset = {uid, address};
+		console.log(dataset)
+		
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/PaymentAPI",
+				type: "PUT",
+				data: JSON.stringify(dataset),
+				dataType: "json",
+				complete: function(response, status) {
+					updateBillingAddress(response.responseText, status);
+				}
+			}
+		)
+	}
+	
+	function updateBillingAddress(responseText, status) {
+		console.log(status);
+		if(status == "success") {
+			var result = JSON.parse(responseText);
+			console.log(result);
+		}
+	}
+	
+})
 
 
  

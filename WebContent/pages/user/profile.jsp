@@ -20,5 +20,11 @@
 		<input type="button" name="sendIDtoHistory" id="sendIDtoHistory" value="History" />
 	</form>
 	
+	<form id="updateAddress" >
+		<input id="puid2" type="text" name="puid2" placeholder="User id to be update" />
+		<input id="pbillingAddress" type="text" name="pbillingAddress" placeholder="Address to be update" />
+		<input type="button" name="sendidtoupdate" id="sendidtoupdate" value="Update Address" />
+	</form>
+	
 </body>
 </html>
