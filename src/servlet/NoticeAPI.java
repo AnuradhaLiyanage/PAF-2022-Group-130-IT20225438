@@ -33,6 +33,7 @@ public class NoticeAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		String UserID = request.getParameter("noticeUserid");
 		String output = notice.noticeDetails(UserID);
+		System.out.println(UserID);
 		response.getWriter().write(output);
 		
 	}
@@ -45,22 +46,37 @@ public class NoticeAPI extends HttpServlet {
 		  }
 		
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// Convert request body to json
 				String jsonString = inputStreamToString(request.getInputStream());
 				JSONObject json = new JSONObject(jsonString);
 				
 				//parameters
-				int id = json.getInt("id");
+				int Id = Integer.parseInt(json.getString("Id"));
+				String userID = json.getString("userID");
+				String username = json.getString("username");
+				String date = json.getString("date");
+				String time = json.getString("time");
+				String type = json.getString("type");
+				String noticetext = json.getString("notice");
 				
-				//clear history
-				    System.out.println(id);
-					String output = notice.deleteNotice(id);
-					response.getWriter().write(output);
+				String output = notice.updateNotice(Id, userID, username, date, time, type, noticetext);
+				response.getWriter().write(output);
+				
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Convert request body to json
+		String jsonString = inputStreamToString(request.getInputStream());
+		JSONObject json = new JSONObject(jsonString);
+		
+		//parameters
+		int id = json.getInt("id");
+		
+		//clear history
+	    System.out.println(id);
+		String output = notice.deleteNotice(id);
+		response.getWriter().write(output);
 				
 	}
 

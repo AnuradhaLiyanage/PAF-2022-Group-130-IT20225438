@@ -144,9 +144,6 @@ public class Notice {
 	// update notices
 		public String updateNotice(int id, String userid, String username, String date, String time, String type, String notice) {
 			String output = "";
-			String erroutput = "";
-			
-			boolean isUpdated = false;
 			
 			// update starting
 			try {
@@ -156,25 +153,21 @@ public class Notice {
 				
 				Statement stmt = con.createStatement();
 				
-				String sql = "update notices set UserID='"+userid+"', userName='"+username+"', Date='"+date+"', Time='"+time+"', Type='"+type+"', Notice='"+notice+"' where ID="+id+"";
+				String sql = "update notices set userName='"+username+"', Date='"+date+"', Time='"+time+"', Type='"+type+"', Notice='"+notice+"' where ID="+id+"";
 				System.out.println("id " + id + "uid " + userid);
 				int result = stmt.executeUpdate(sql);
 				
 				if (result > 0) {
-					isUpdated = true;
+					output = "{\"status\":\"success\", \"data\":\"Notice details successfully updated!!!\"}";
 				} else {
-					isUpdated = false;
+					output = "{\"status\":\"error\", \"data\":\"Notice Details Not Updated!\"}";
 				}
 				
-				output = "<h4>Notice details successfully updated!!!</h4>";
+				
 				
 			} catch (Exception e) {
-				output="Notice Details Not Updated!";
+				output = "{\"status\":\"error\", \"data\":\"Notice Details Not Updated!\"}";
 				System.err.println(e.getMessage());
-			}
-			
-			if (isUpdated == false) {
-				erroutput = "Error while updating details";
 			}
 			
 			return output;

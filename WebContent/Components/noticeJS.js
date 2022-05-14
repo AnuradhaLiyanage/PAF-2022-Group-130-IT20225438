@@ -5,7 +5,7 @@
 	{
 	 $("#alertSuccess").hide();
 	 $("#alertError").hide();
-	 
+	 	 
 	 $.ajax(
 		{
 			url: "/PAF-2022-Group-130/NoticeAPI",
@@ -14,7 +14,7 @@
 			dataType: "text",
 			complete: function(response,status)
 			{
-				if($("#findpage")==="noticeUpdate"){
+				if($("#findpage").val()=="noticeUpdate"){
 					LoadUpdatedetails(response.responseText,status)
 				}else{
 					onComplete(response.responseText,status)
@@ -28,7 +28,6 @@
 	
 		function onComplete(responseText,status){
 			if(status == "success"){
-				console.log(responseText)
 				var result = JSON.parse(responseText)
 				if(result.status == "success"){
 					console.log(result.data)
@@ -43,6 +42,23 @@
 			}
 		}
 		
+		// on load details to be update
+		function LoadUpdatedetails(response,status){
+			if(status == "success") {
+				var result = JSON.parse(response);
+				console.log(result)
+				if(result.status == "success") {
+					$("#nuid").attr("value", result.data.id).show();
+					$("#nusername").attr("value", result.data.username).show();
+					$("#nudate").attr("value", result.data.date).show();
+					$("#nutime").attr("value", result.data.time).show();
+					$("#nutype").attr("value", result.data.type).show();
+					$("#nunotice").attr("value", result.data.notice).show();
+				} else {
+					alert(result.data);
+				}
+			}
+		}
 
 		
 });
@@ -63,13 +79,10 @@ $(document).ready(function(){
 //function for get all notices details
 function onNoticeLoaded(response, status) {
 	
-	
-	console.log(response)
 	var result = JSON.parse(response)
 	let tbody = document.getElementById('user_table_notice');
 	
 	result.data.map((data)=> {
-		console.log(data);
 		let row = document.createElement('tr') ;
 		row.className = "noticetr";
 		
@@ -99,12 +112,7 @@ function onNoticeLoaded(response, status) {
 			form.action = "NoticeUpdate.jsp";
 			form.method = "POST";
 			form.id = "updateform";
-			//send uid for update
-			let uidValue = document.createElement("input");
-			uidValue.hidden = true;
-			uidValue.id = "uidvalue"
-			uidValue.name = "uidtobeupdate"
-			uidValue.value = data.userid;
+
 					
 			//update Button
 			let updateBtn = document.createElement("input");
@@ -112,7 +120,7 @@ function onNoticeLoaded(response, status) {
 			updateBtn.value = "UPDATE";
 			updateBtn.type = "button";
 			updateBtn.onclick =(e)=>{
-				senduidForUpdate();
+				senduidForUpdate(data.userid);
 			}
 			
 			//Delete Button
@@ -125,7 +133,7 @@ function onNoticeLoaded(response, status) {
 			}
 			
 			
-			form.appendChild(uidValue);
+			//form.appendChild(uidValue);
 			form.appendChild(updateBtn);
 			
 			let updateForm = document.createElement("td");
@@ -154,11 +162,20 @@ function onNoticeLoaded(response, status) {
 })
 	
 //send uid for update
-function senduidForUpdate(){
-	console.log(
-	$("#uidvalue").val()
-	)
-	//$("#updateform").submit();
+function senduidForUpdate(userID){
+	
+	//send uid for update
+	let uidValue = document.createElement("input");
+	uidValue.hidden = true;
+	uidValue.id = "uidvalue"
+	uidValue.name = "uidtobeupdate"
+	uidValue.value = userID;
+	
+	let form = document.getElementById("updateform");
+	
+	form.appendChild(uidValue)
+	
+	$("#updateform").submit();
 }
 
 	
@@ -187,10 +204,50 @@ function DeleteRow(id){
 	}
 }
 
-function LoadUpdatedetails(response,status){
-	console.log(response);
-}
 
+// update
+$(document).ready( ()=> {
+	
+	$("#btnnoticeUpdate").click(function() {
+		let Id = $("#nuid").val();
+		let userID = $("#nuuid").val();
+		let username = $("#nusername").val();
+		let date = $("#nudate").val();
+		let time = $("#nutime").val();
+		let type = $("#nutype").val();
+		let notice = $("#nunotice").val();
+		
+		var updateSet = { Id, userID, username, date, time, type, notice }
+		
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/NoticeAPI",
+				type:	"PUT",
+				data:	JSON.stringify(updateSet),
+				dataType: "json",
+				complete: function(response, status) {
+					onUpdateComplete(response.responseText, status);
+				}
+			}
+		)
+		
+		// when updated
+		function onUpdateComplete(responseText, status) {
+			if(status == "success") {
+				var result = JSON.parse(responseText);
+				
+				if(result.status == "success") {
+					alert(result.data)
+					window.location.reload();
+				} else {
+					alert(result.data)
+				}
+			}
+		}
+		
+	})
+
+})
 
 //function for button make a payment
 $("#noticebtnSave").click(function() {

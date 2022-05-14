@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="../../Views/user.css" />
 <script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
+<script src="../../Components/noticeJS.js"></script>
 <title>Insert title here</title>
 <style>
       #intro {
@@ -19,10 +20,9 @@
 <body>
 	<div id="intro">
 	
-	<%String uidtobeupdate = request.getParameter("uidtobeupdate"); %>
-	
+	<%String uidtobeup = request.getParameter("uidtobeupdate"); %>
 	<form id="sendNoticeID">
-	<input type="hidden" name="uidtobeupdate" id="uidtobeupdate" value=<%=uidtobeupdate %>>
+	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=uidtobeup%>>
 	<input type="hidden" name="findpage" id="findpage" value="noticeUpdate">
 		
 	</form>
@@ -44,33 +44,33 @@
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">UID</label>
-      <input type="text" id="nuuid" class="form-control" value ="<%=uidtobeupdate%>">
+      <input type="text" id="nuuid" class="form-control" value ="<%=uidtobeup%>" readonly="readonly">
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Username</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nusername" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Date</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nudate" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Time</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nutime" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Notice Type</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nutype" class="form-control" >
     </div>
     <div class="mb-5">
       <label for="disabledTextInput" class="form-label">Notice</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nunotice" class="form-control" >
     </div>
     
     
     
   </fieldset>
-  <button type="submit" class="d-grid gap-2 col-6 mx-auto btn btn-success" id="btnUpdate">Update</button><br><br>
+  <button type="button" class="d-grid gap-2 col-6 mx-auto btn btn-success" id="btnnoticeUpdate">Update</button><br><br>
 
 </form>
 </div>
