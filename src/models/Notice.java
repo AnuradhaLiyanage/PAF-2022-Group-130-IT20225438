@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import database.DBConnect;
 
 public class Notice {
@@ -42,33 +45,42 @@ public class Notice {
 	}
 
 	//html table open
-	output="<table border='1'>"
-	+ "<tr>"
-	+ "<th>ID</th>"
-	+ "<th>UserID</th>"
-	+ "<th>userName</th>"
-	+ "<th>Date</th>"
-	+ "<th>Time</th>"
-	+ "<th>Type</th>"
-	+ "<th>Notice</th>"
-	+ "</tr>"
-	+ "<tr>"
-	+ "<td>"+ID+"</td>"
-	+ "<td>"+UserID+"</td>"
-	+ "<td>"+userName+"</td>"
-	+ "<td>"+Date+"</td>"
-	+ "<td>"+Time+"</td>"
-	+ "<td>"+Type+"</td>"
-	+ "<td>"+Notice+"</td>"
-	+ "</tr>"
-	+ "</table>";
-
-
+//	output="<table border='1'>"
+//	+ "<tr>"
+//	+ "<th>ID</th>"
+//	+ "<th>UserID</th>"
+//	+ "<th>userName</th>"
+//	+ "<th>Date</th>"
+//	+ "<th>Time</th>"
+//	+ "<th>Type</th>"
+//	+ "<th>Notice</th>"
+//	+ "</tr>"
+//	+ "<tr>"
+//	+ "<td>"+ID+"</td>"
+//	+ "<td>"+UserID+"</td>"
+//	+ "<td>"+userName+"</td>"
+//	+ "<td>"+Date+"</td>"
+//	+ "<td>"+Time+"</td>"
+//	+ "<td>"+Type+"</td>"
+//	+ "<td>"+Notice+"</td>"
+//	+ "</tr>"
+//	+ "</table>";
+	
+	JSONObject json = new JSONObject();
+	json.put("id", ID);
+	json.put("userid", UserID);
+	json.put("username", userName);
+	json.put("date", Date);
+	json.put("time", Time);
+	json.put("type", Type);
+	json.put("notice", Notice);
+	
+	output = "{\"status\":\"success\",\"data\":"+json+"}";
 
 	} catch (Exception e) {
 	// TODO: handle exception
-
-	output="User not Registered";
+		output = "{\"status\":\"error\",\"data\":\"User not Registered\"}";
+	
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -168,14 +180,14 @@ public class Notice {
 			return output;
 		}
 		
-		// update notices
+		// delete notices
 				public String deleteNotice(int id) {
 					String output = "";
 					String erroutput = "";
 					
 					boolean isDeleted = false;
 					
-					// update starting
+					// delete starting
 					try {
 						// check db connection
 						Connection con = DBConnect.connect();
@@ -206,6 +218,58 @@ public class Notice {
 					
 					return output;
 				}
+				
+		//Get All notices by Admin
+		public String getallnoticedetails() {
+			// TODO Auto-generated method stub
+			String output="";
+			try {
+				// check database connection
+				Connection con = DBConnect.connect();
+				if(con == null) { return "Error while connecting to the database.."; }	
+				
+				//delete user details
+				Statement stmt=con.createStatement();
+				String sql = "SELECT * FROM notices";
+				
+				ResultSet rs=stmt.executeQuery(sql);
+				
+				JSONArray jsonAll = new JSONArray();
+				
+				int i = 0;
+				
+				
+				while(rs.next()) {
+				
+				
+					JSONObject json = new JSONObject();
+					json.put("id", rs.getString(1));
+					json.put("userid", rs.getString(2));
+					json.put("username", rs.getString(3));
+					json.put("date", rs.getString(4));
+					json.put("time", rs.getString(5));
+					json.put("type", rs.getString(6));
+					json.put("notice", rs.getString(7));
+					
+					
+					jsonAll.put(i,json);
+					i = i+1;
+					
+					
+				}
+				 System.out.println(jsonAll);
+				
+				output = "{\"status\":\"success\", \"data\":"+jsonAll+"}";
+								
+			} catch (Exception e) {
+				// TODO: handle exception
+				output="{\"status\":\"error\", \"data\":\"Error while getting all notice details\"}";
+				System.err.println(e.getMessage());
+			}
+			
+			return output;
+		}
+
 				
 }
 

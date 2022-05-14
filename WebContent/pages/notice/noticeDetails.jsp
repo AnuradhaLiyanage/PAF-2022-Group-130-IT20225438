@@ -24,7 +24,7 @@
   <div id="intro">
 	
 	
-	<div class="container">
+<div class="container">
 <br>  
 
 
@@ -39,25 +39,25 @@
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="uid" placeholder="Enter User ID" type="text">
+        <input name="" class="form-control" id="noticeuid" placeholder="Enter User ID" type="text">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="username" placeholder="Enter Username" type="text">
+        <input name="" class="form-control" id="noticeusername" placeholder="Enter Username" type="text">
     </div> 
      <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="date" placeholder="Enter Date" type="date">
+        <input name="" class="form-control" id="noticedate" placeholder="Enter Date" type="date">
     </div> 
      <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="type" placeholder="Enter Time" type="time">
+        <input name="" class="form-control" id="noticetime" placeholder="Enter Time" type="time">
     </div> 
      
     
@@ -66,7 +66,7 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
 		</div>
-		<select class="form-control">
+		<select class="form-control" id="noticetype">
 			<option value="0">--Select Notice Type--</option>
 			 <option value="1">Payment Details</option>
 			 <option value="2">Bill Details</option>
@@ -78,10 +78,10 @@
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
         
-        <textarea class="form-control" placeholder="Write notice details description..." rows="5" id="notice" name="text"></textarea>
+        <textarea class="form-control" placeholder="Write notice details description..." rows="5" id="noticemsg" name="text"></textarea>
     </div>                                      
     <div class="form-group">
-        <button type="submit" id="btnSave" class="btn btn-primary btn-block"> Submit  </button>
+        <button type="submit" id="noticebtnSave" class="btn btn-primary btn-block"> Submit  </button>
         <input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
     </div> <!-- form-group// -->      
                                                                    

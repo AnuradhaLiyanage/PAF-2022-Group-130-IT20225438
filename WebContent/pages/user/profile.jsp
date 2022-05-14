@@ -5,9 +5,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="../../Views/user.css" />
-<script src="../../Components/jquery-3.2.1.min.js"></script>
+<script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
+<script src="../../Components/noticeJS.js"></script>
 <title>Insert title here</title>
 <style>
       #intro {
@@ -16,9 +16,19 @@
       }
     </style>
 </head>
-
+<body>
+	
+	
 <body>
 	<div id="intro">
+	
+	
+	<%String noticeUserid = request.getParameter("noticeUserid"); %>
+	<form id="sendNoticeID">
+	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=noticeUserid %>>
+		
+	</form>
+	
 	
 	<div class="container">
 	<div class="d-flex justify-content-center" >
@@ -32,27 +42,15 @@
   <fieldset disabled>
     <div class="row">
 	  <div class="col">
-	  <label for="disabledTextInput" class="form-label">ID</label>
-	    <input type="text" class="form-control" aria-label="First name">
+	  <label for="disabledTextInput" class="form-label">User ID</label>
+	    <input id="usernoticeid" type="text" class="form-control" aria-label="userid">
 	  </div>
 	  <div class="col mb-3">
-	   <label for="disabledTextInput" class="form-label">UID</label>
-	    <input type="text" class="form-control"  aria-label="Last name">
+	   <label for="disabledTextInput" class="form-label">Username</label>
+	    <input id="noticeusername" type="text" class="form-control"  aria-label="username">
 	  </div>
 	 </div>
- 
-    <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Username</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
-    </div>
-    
-    
-	 
-     
-   
-    
-    
-    
+
   </fieldset>
   
 </form>
@@ -84,28 +82,36 @@
        <div class="row">
 	  <div class="col">
 	  <label for="disabledTextInput" class="form-label">Date</label>
-	    <input type="text" class="form-control" aria-label="First name">
+	    <input id="noticedate" type="text" class="form-control" aria-label="date">
 	  </div>
 	  <div class="col mb-3">
 	   <label for="disabledTextInput" class="form-label">Time</label>
-	    <input type="text" class="form-control"  aria-label="Last name">
+	    <input id="noticetime" type="text" class="form-control"  aria-label="time">
 	  </div>
 	 </div>
 	 
        <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Notice Type</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="noticetype" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Notice</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="noticeid" class="form-control input-lg">
+      
     </div>
     
     </fieldset>
+    
+    <!-- 
+    <form>
     <a href="../notice/NoticeUpdate.jsp" class="d-grid gap-2 col-6 mx-auto btn btn-success"  role="button">Update</a>
+    </form>
 	<br>
  	
     <button type="submit" class="d-grid gap-2 col-6 mx-auto btn btn-danger" id="remove">Delete</button>
+    
+     -->
+     
     </div>
   </div>
   <div class="card">
@@ -113,15 +119,27 @@
     <div class="card-body">
       <h5 class="card-title">Payment Details</h5>
        <hr>
-       <fieldset disabled>
-        
-    <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Payment</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+       <fieldset >
+       <div class="mb-3">
+       <form id="parseID" action="../payment/billbeforepayment.jsp" method="post">
+		<input id="puid" type="text" name="puid" />
+		<input type="button" name="sendID" id="sendID" class="mb-3" value="PAYMENT" />
+	</form>
+	
+	<form id="parseID1" action="../payment/paymentHistory.jsp" method="post">
+		<input id="puid1" type="text" name="puid" />
+		<input type="button" name="sendIDtoHistory" class="mb-3" id="sendIDtoHistory" value="History" />
+	</form>
+	<fieldset disabled>
+	<div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Paid Status</label>
+      <input type="text" id="paidstatusid" class="form-control" >
     </div>
+    </fieldset>
     </div>
-  </div>
-  <div class="card">
+    </fieldset>
+    
+      <div class="card">
    
     <div class="card-body">
       <h5 class="card-title">Billing Details</h5>
@@ -129,11 +147,15 @@
        <fieldset disabled>
         
     <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Billing</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <label for="disabledTextInput" class="form-label">Bill Amount</label>
+      <input type="text" id="billamountid" class="form-control" >
     </div>
     </div>
   </div>
+  
+    </div>
+  </div>
+
 </div>
 </div>
 </div>
