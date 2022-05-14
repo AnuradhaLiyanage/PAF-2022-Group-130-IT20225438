@@ -23,7 +23,7 @@ public class Payment {
 			Connection con = DBConnect.connect();
 			
 			// declare open variables
-			String uid = null;
+			String uid =null;
 			String name = null;
 			String address = null;
 			String accNumber = null;
@@ -47,13 +47,15 @@ public class Payment {
 			
 			// customer rs
 			if(crs.next()) {
-				uid = crs.getString(1);
+				uid = String.valueOf(crs.getInt(1));
 				name = crs.getString(2);
 				address = crs.getString(3);
 				accNumber = Integer.toString(crs.getInt(4)); 
 				nic = crs.getString(5);
 				email = crs.getString(6);
 				phone = crs.getString(7);
+				
+				
 				
 			}
 			
@@ -176,6 +178,8 @@ public class Payment {
 			
 			output2 = "{\"status\":\"success\", \"data\": "+json+"}";
 			
+			System.out.println(output2);
+			
 		} catch (Exception e) {
 			//output = "Error while showing the customer details."; 
 			output2 = "{\"status\":\"Error\", \"data\": \"Error while fetching the details.\"}";
@@ -263,7 +267,7 @@ public class Payment {
 			ArrayList<String> payCus = new ArrayList<String>();
 			payCus = getCustomerDetails(userID);
 			// demostrate List
-			String curruntUid = payCus.get(0);
+			int curruntUid =Integer.parseInt( payCus.get(0));
 			String name = payCus.get(1);
 			String billAddress = payCus.get(2);
 			int accNumber = Integer.parseInt(payCus.get(3)); 
@@ -353,9 +357,6 @@ public class Payment {
 	// update address
 	public String updatePaymentAddress(String uid, String address) {
 		String output = "";
-		String erroutput = "";
-		
-		boolean isUpdated = false;
 		
 		// update starting
 		try {
@@ -364,28 +365,20 @@ public class Payment {
 			if(con == null) { return "Error while connecting to the database.."; }
 			
 			Statement stmt1 = con.createStatement();
-			Statement stmt2 = con.createStatement();
 			
 			String sql1 = "update payment set BillingAddress='"+address+"' where UserID="+uid+"";
 			
 			int result1 = stmt1.executeUpdate(sql1);
 			
 			if (result1 > 0) {
-				isUpdated = true;
+				output ="{\"status\":\"success\", \"data\":\"Billing address update success\"}";
 			} else {
-				isUpdated = false;
+				output ="{\"status\":\"error\", \"data\":\"Error while updating the billing address\"}";
 			}
 			
-			output = "<h4>Payment address successfully updated!!!</h4>"
-					+ "<h5>New payment address is "+address+"";
-			
 		} catch (Exception e) {
-			output = "Error while updating payment details."; 
+			output ="{\"status\":\"error\", \"data\":\"Catch Error while updating the billing address\"}";
 			System.err.println(e.getMessage());
-		}
-		
-		if (isUpdated == false) {
-			erroutput = "Error while updating details";
 		}
 		
 		return output;
@@ -411,15 +404,15 @@ public class Payment {
 			System.out.print(result);
 			
 			if (result > 0) {
-				output = "<h4>Payment history deleted.</h4>";
+				output = "{\"status\":\"success\", \"data\":\"Delete Success\"}";
 			} else {
-				output = "<h4>Error while deleting payment history.</h4>";
+				output = "{\"status\":\"error\", \"data\":\"Delete Unsuccess\"}";
 			}
 
 			
 			
 		} catch (Exception e) {
-			output = "Error while deleting payment history."; 
+			output = "{\"status\":\"error\", \"data\":\"Delete Unsuccess\"}";
 			System.err.println(e.getMessage());
 		}
 		
@@ -521,6 +514,36 @@ public class Payment {
 			
 		} catch (Exception e) {
 			output = "Error while showing payment history."; 
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+	}
+	
+	// insert card details
+	public String insertCardDetails(String uid, String pid, String owner, String cardNumber, String cvv,
+			String expDate) {
+		
+		String output = "";
+		try {
+			// check db connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }
+			
+			// insert sql
+			String sql = "insert into payment_methods values(0, '"+uid+"', '"+pid+"', '"+owner+"', '"+cardNumber+"', '"+cvv+"', '"+expDate+"')";
+			Statement stmt = con.createStatement();
+			int result = stmt.executeUpdate(sql);
+			
+			boolean isInserted = false;
+			if(result > 0) {
+				output = "{\"status\":\"success\", \"data\":\"Debit card successfully saved.\"}";
+			} else {
+				output = "{\"status\":\"error\", \"data\":\"Debit card not saved.\"}";
+			}
+			
+		} catch (Exception e) {
+			output = "{\"status\":\"error\", \"data\":\"Error while saving debit card details.\"}";
 			System.err.println(e.getMessage());
 		}
 		

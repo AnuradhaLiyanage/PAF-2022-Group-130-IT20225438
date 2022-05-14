@@ -29,6 +29,9 @@
 }
 </style>
 <body>
+<!-- use for java script file -->
+<input type="hidden" id="pageselector" value="userdetailspage" />
+
 <h1 class="mb-3 d-flex justify-content-center" > Customer Details</h1>
 	<div class=container>
 	<table class= "usertable">

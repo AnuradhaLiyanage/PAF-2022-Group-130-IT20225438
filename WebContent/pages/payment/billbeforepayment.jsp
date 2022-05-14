@@ -17,6 +17,7 @@
 	<% String uid = request.getParameter("puid"); %>
 	<!-- automatic send form for get bill details -->
 	<form id="billBeforePay" name="billBeforePay">
+		<input id="paymentfuncpages" name="paymentfuncpages" type="hidden" value="paymentbill" />
 		<input type="hidden" name="puid" id="puid" value=<%=uid%> />
 	</form>
 	

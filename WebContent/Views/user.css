@@ -6,6 +6,12 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+#intro {
+background-image: url("");
+height: 100%;
+}
+
 .divider-text span {
     padding: 10px;
     font-size: 12px;
@@ -31,6 +37,21 @@
     color: #fff;
 }
 
+.user_error {
+	color: red;
+	font-weight: bold;
+}
+
+.pmf:focus{
+	outline-color: red;
+	outline-style: solid;
+    border-color: red;
+    box-shadow: 0 0 0 0.25rem rgb(255 0 0 / 25%);
+}
+
+.hide {
+	display: none;
+}
 
 
 

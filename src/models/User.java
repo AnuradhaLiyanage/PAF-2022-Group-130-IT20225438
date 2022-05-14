@@ -92,7 +92,7 @@ public class User {
 	
 	
 
-	public String InsertUserDetails(String uid, String name, String address, int accno, String nic, String email,
+	public String InsertUserDetails(String name, String address, int accno, String nic, String email,
 			String phone, String type, String username, String password) {
 		// TODO Auto-generated method stub
 		String output="";
@@ -104,19 +104,17 @@ public class User {
 			
 			//Insert into  user details
 			Statement stmt=con.createStatement();
-			String sql="INSERT INTO customer VALUES ('"+uid+"','"+name+"','"+address+"','"+accno+"','"+nic+"','"+email+"','"+phone+"','"+type+"','"+username+"','"+password+"')";
+			String sql="INSERT INTO customer VALUES (0,'"+name+"','"+address+"','"+accno+"','"+nic+"','"+email+"','"+phone+"','"+type+"','"+username+"','"+password+"')";
 		    int rs=stmt.executeUpdate(sql);
 		    
 		    if(rs>0) {
-		    	output="<h4>User Details Successfully Inserted !!!</h4>";
+		    	output = "{\"status\":\"success\", \"data\":\"User Details Successfully Inserted !!!\"}";
 		    }else {
-		    	output="User Details not Insert";
+		    	output = "{\"status\":\"error\", \"data\":\"User Details not Insert\"}";
 		    }
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			
-			output="User Details not Insert";
+			output = "{\"status\":\"error\", \"data\":\"Catch User Details not Insert\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -245,7 +243,6 @@ public class User {
 				
 				
 			}
-			 System.out.println(jsonAll);
 			
 			output = "{\"status\":\"success\", \"data\":"+jsonAll+"}";
 							

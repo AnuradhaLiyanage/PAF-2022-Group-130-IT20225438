@@ -53,6 +53,24 @@ public class PaymentService {
 //		}
 	}
 	
+	// Insert payment card details to database
+	@POST
+	@Path("/insertCard")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	// for get method use @PathParam instead of @FormParam
+	public String insertCard(
+			@FormParam("uid") String uid,
+			@FormParam("pid") String pid,
+			@FormParam("owner") String owner,
+			@FormParam("cardNumber") String cardNumber,
+			@FormParam("cvv") String cvv,
+			@FormParam("expDate") String expDate) {
+		
+			return paymentObj.insertCardDetails(uid,pid, owner, cardNumber, cvv, expDate);
+		
+	}
+	
 	// update the payment billing address on payment
 	@PUT
 	@Path("/updateAddress")
@@ -99,8 +117,6 @@ public class PaymentService {
 		String output = paymentObj.showPaymentHistory(uid);
 		return output;
 	}
-	
-		
 }
 
 

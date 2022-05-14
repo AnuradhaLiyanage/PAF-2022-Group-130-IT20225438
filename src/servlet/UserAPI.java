@@ -22,7 +22,6 @@ public class UserAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String output = cus.getalluserdetails();
-		
 		response.getWriter().write(output);
 		
 	}
@@ -30,10 +29,36 @@ public class UserAPI extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String userId = request.getParameter("uid");
-		String output = cus.DeleteUserDetails(userId);
-		System.out.println(userId);
-		response.getWriter().write(output);
+		
+		String method = request.getParameter("method");
+		
+		// clicked button delete
+		if (method.equals("delete")) {
+			String userId = request.getParameter("uid");
+			String output = cus.DeleteUserDetails(userId);
+			System.out.println(userId);
+			response.getWriter().write(output);
+		}
+		
+		
+		// clicked insert button
+		if(method.equals("insert")) {
+			String name = request.getParameter("cusname");
+			String address = request.getParameter("cusaddress");
+			String accno = request.getParameter("cusaccno");
+			String nic = request.getParameter("cusnic");
+			String email = request.getParameter("cusemail");
+			String phone = request.getParameter("cusphone");
+			String type = request.getParameter("custype");
+			String uname = request.getParameter("cususername");
+			String pass = request.getParameter("cuspassword");
+			
+			int AccNo = Integer.parseInt(accno);
+			
+			String output = cus.InsertUserDetails(name, address, AccNo, nic, email, phone, type, uname, pass);
+			response.getWriter().write(output);
+		}
+		
 	}
 
 	
