@@ -14,7 +14,13 @@
 			dataType: "text",
 			complete: function(response,status)
 			{
-				onComplete(response.responseText,status)
+				if($("#findpage")==="noticeUpdate"){
+					LoadUpdatedetails(response.responseText,status)
+				}else{
+					onComplete(response.responseText,status)
+				}
+				
+				
 			}
 		}
 		
@@ -37,8 +43,28 @@
 			}
 		}
 		
-		//function for get all notices details
+
+		
+});
+
+$(document).ready(function(){
+	
+	$.ajax(
+		{
+			url: "/PAF-2022-Group-130/NoticeAPI",
+			type:	"GET",
+			dataType:	"text",
+			complete:	function(response,status){
+				onNoticeLoaded(response.responseText,status);
+			}
+		}
+	)
+	
+//function for get all notices details
 function onNoticeLoaded(response, status) {
+	
+	
+	console.log(response)
 	var result = JSON.parse(response)
 	let tbody = document.getElementById('user_table_notice');
 	
@@ -69,16 +95,54 @@ function onNoticeLoaded(response, status) {
 		notice.className = "noticetd";
 		notice.innerHTML = data.notice;
 		
+		let form = document.createElement("form");
+			form.action = "NoticeUpdate.jsp";
+			form.method = "POST";
+			form.id = "updateform";
+			//send uid for update
+			let uidValue = document.createElement("input");
+			uidValue.hidden = true;
+			uidValue.id = "uidvalue"
+			uidValue.name = "uidtobeupdate"
+			uidValue.value = data.userid;
+					
+			//update Button
+			let updateBtn = document.createElement("input");
+			updateBtn.classList.add("btn","btn-success","mb-3");
+			updateBtn.value = "UPDATE";
+			updateBtn.type = "button";
+			updateBtn.onclick =(e)=>{
+				senduidForUpdate();
+			}
 			
+			//Delete Button
+			let deleteBtn = document.createElement("input");
+			deleteBtn.classList.add("btn","btn-danger");
+			deleteBtn.value = "DELETE";
+			deleteBtn.type = "button";
+			deleteBtn.onclick =(e)=>{
+				DeleteRow(data.id);
+			}
+			
+			
+			form.appendChild(uidValue);
+			form.appendChild(updateBtn);
+			
+			let updateForm = document.createElement("td");
+			updateForm.className = "noticetd";
+			updateForm.appendChild(form);
+			updateForm.appendChild(deleteBtn);
+
 		
 		row.appendChild(id);	
-		row.appendChild(uid);
 		row.appendChild(userid);
 		row.appendChild(username);
 		row.appendChild(date);
 		row.appendChild(time);
 		row.appendChild(type);
 		row.appendChild(notice);
+		row.appendChild(updateForm);
+
 		
 		
 		tbody.appendChild(row);
@@ -86,12 +150,15 @@ function onNoticeLoaded(response, status) {
 		
 	})
 }
-		
-});
+
+})
 	
 //send uid for update
 function senduidForUpdate(){
-	$("#updateform").submit();
+	console.log(
+	$("#uidvalue").val()
+	)
+	//$("#updateform").submit();
 }
 
 	
@@ -102,9 +169,9 @@ function DeleteRow(id){
 	$.ajax(
 		{
 			url:	"/PAF-2022-Group-130/NoticeAPI",
-			type:	"POST",
-			data:	deleteData,
-			dataType:	"JSON",
+			type:	"DELETE",
+			data:	JSON.stringify(deleteData),
+			dataType:	"json",
 			complete:	function(response,status){
 				OnDelete(response.responseText,status);
 			}
@@ -118,6 +185,10 @@ function DeleteRow(id){
 			window.location.reload();
 	
 	}
+}
+
+function LoadUpdatedetails(response,status){
+	console.log(response);
 }
 
 
