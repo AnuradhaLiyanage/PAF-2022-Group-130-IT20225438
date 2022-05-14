@@ -70,7 +70,7 @@ public class UserService {
 					nic.isEmpty() || email.isEmpty() || phone.isEmpty() || type.isEmpty() || username.isEmpty() || password.isEmpty()) {
 				return "Please enter the all details";
 			} else {
-				return userObj.InsertUserDetails(uid,name,address,accno,nic,email,phone,type,username,password);
+				return userObj.InsertUserDetails(name,address,accno,nic,email,phone,type,username,password);
 			}
 		}
 		
