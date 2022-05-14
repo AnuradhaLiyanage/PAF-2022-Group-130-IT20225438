@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../../Views/user.css" />
-<script src="../../Components/jquery-3.2.1.min.js"></script>
+<script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
 <title>Insert title here</title>
 <style>
@@ -16,8 +16,17 @@
       } 
     </style>
 </head>
-
+<body>
 	<div id="intro">
+	
+	<%String uidtobeupdate = request.getParameter("uidtobeupdate"); %>
+	
+	<form id="sendNoticeID">
+	<input type="hidden" name="uidtobeupdate" id="uidtobeupdate" value=<%=uidtobeupdate %>>
+	<input type="hidden" name="findpage" id="findpage" value="noticeUpdate">
+		
+	</form>
+	
 	<div class="container">
 	<div class="d-flex justify-content-center" >
 		<div class="col col-xl-10" >
@@ -31,11 +40,11 @@
     
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">ID</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nuid" class="form-control" readonly = "readonly" >
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">UID</label>
-      <input type="text" id="disabledTextInput" class="form-control" >
+      <input type="text" id="nuuid" class="form-control" value ="<%=uidtobeupdate%>">
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Username</label>
