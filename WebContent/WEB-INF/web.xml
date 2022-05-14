@@ -30,4 +30,14 @@
   		<url-pattern>/pba</url-pattern>
   	</servlet-mapping>
   	
+  	
+  	<servlet>
+  		<servlet-name>user</servlet-name>
+  		<servlet-class>com.servlet.UserAPI</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>user</servlet-name>
+  		<url-pattern>/customer</url-pattern>
+  	</servlet-mapping>
+  	
 </web-app>

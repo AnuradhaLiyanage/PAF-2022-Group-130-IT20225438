@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import database.DBConnect;
 
 public class User {
@@ -11,6 +15,7 @@ public class User {
 //login
 	public String login(String username,String password) {
 		String output="";
+		
 		
 		try {
 			//check database connection
@@ -74,7 +79,7 @@ public class User {
 					+ "</tr>"
 					+ "</table>";					
 					
-			
+		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -181,6 +186,7 @@ public class User {
 			}
 			
 			output = "<h4>User Details successfully Deleted!!!</h4>";
+			System.out.println(output);
 				
 			
 			
@@ -192,6 +198,66 @@ public class User {
 		}
 		
 	
+		return output;
+	}
+	
+
+	//Get All users by Admin
+	public String getalluserdetails() {
+		// TODO Auto-generated method stub
+		String output="";
+		try {
+			// check database connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }	
+			
+			//delete user details
+			Statement stmt=con.createStatement();
+			String sql = "SELECT * FROM customer";
+			
+			ResultSet rs=stmt.executeQuery(sql);
+			
+			
+
+			JSONArray jsonAll = new JSONArray();
+			
+			int i = 0;
+			
+			
+			while(rs.next()) {
+			
+			
+				JSONObject json = new JSONObject();
+				json.put("uid", rs.getString(1));
+				json.put("name", rs.getString(2));
+				json.put("address", rs.getString(3));
+				json.put("accno", rs.getString(4));
+				json.put("nic", rs.getString(5));
+				json.put("email", rs.getString(6));
+				json.put("phone", rs.getString(7));
+				json.put("type", rs.getString(8));
+				json.put("username", rs.getString(9));
+				json.put("password", rs.getString(10));
+				
+				
+				jsonAll.put(i,json);
+				i = i+1;
+				
+				
+			}
+			 System.out.println(jsonAll);
+			
+			output = "{\"status\":\"success\", \"data\":"+jsonAll+"}";
+							
+		} catch (Exception e) {
+			// TODO: handle exception
+			output="{\"status\":\"error\", \"data\":\"Error while getting all customers details\"}";
+			System.err.println(e.getMessage());
+		}
+		
+		
+		
+		
 		return output;
 	}
 		
