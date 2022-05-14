@@ -31,6 +31,10 @@
     color: #fff;
 }
 
+#signuperror {
+	color: red;
+	font-weight: bold;
+}
 
 
 
