@@ -12,7 +12,7 @@
 <title>userupdate</title>
 <style>
 #intro {
-background-image: url("https://www.europarl.europa.eu/resources/library/images/20171115PHT88108/20171115PHT88108-pl.jpg");
+background-image: url("");
 height: 100%;
 }
 </style>
@@ -38,7 +38,9 @@ height: 100%;
 <fieldset >
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">UserID</label>
+
 <input type="text" id="userID" name="userID" class="form-control" readonly="readonly" >
+
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Name</label>

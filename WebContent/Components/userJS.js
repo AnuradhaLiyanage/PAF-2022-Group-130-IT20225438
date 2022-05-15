@@ -166,9 +166,10 @@ function DeleteRow(uid){
 			alert ("successfull deleted!!!")
 			window.location.reload();	
 		} else {
-			//alert (result.data)
-			//window.location.reload();
+			alert (result.data)
+			window.location.reload();
 		}
+	
 	}
 }	
 
