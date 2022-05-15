@@ -67,6 +67,67 @@ $(document).on("click", "#sendidtoupdate", (e) => {
  User
  */
  
+ $(document).ready(( )=> {
+	$("#login-error").hide();
+})
+ 
+ $(document).on("click", "#loginBtn", function(event) {
+	let uname = document.getElementById("loginusername");
+	let pass = document.getElementById("loginpassword");
+	
+	// check uname and pass is empty
+	if(uname.value === "") {
+		$("#login-error").text("Enter your username").show();
+		uname.classList.add("pmf")
+		uname.focus();
+	} else if(pass.value === "") {
+		uname.classList.remove("pmf")
+		$("#login-error").text("Enter your password").show();
+		pass.classList.add("pmf")
+		pass.focus();
+	} else {
+		pass.classList.remove("pmf")
+		$("#login-error").hide();
+		
+		var msg = null;
+		
+		var data = $("#frm-login").serialize();
+		
+		// cred not empty run checking
+		let username = uname.value;
+		let password = pass.value;
+		let method = "login";
+		
+		var credentials = { method, username, password };
+		
+		$.ajax (
+			{
+				url: "/PAF-2022-Group-130/UserAPI",
+				type: "POST",
+				data: data,
+				dataType: "JSON",
+				complete: function(data) {					
+					
+					
+					msg = data.responseJSON[0].msg
+
+					if(msg == 1) {
+						window.location.replace("pages/user/profile.jsp");
+					} else if(msg == 3) {
+						$("#login-error").text("Your username or password incorrect").show();
+					} else {
+						$("#login-error").text("Unknown error while login").show();
+					}
+					
+				}
+			}
+		)
+		
+	}
+	
+})
+ 
+ 
  /**
  Billing
  */

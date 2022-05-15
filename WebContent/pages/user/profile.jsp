@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../../Views/payments.css" />
 <script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
 <script src="../../Components/noticeJS.js"></script>
@@ -20,13 +21,25 @@
 	
 	
 <body>
+	
+	<% 
+		
+		if(session.getAttribute("loginID") == null) {
+			response.sendRedirect("../../");
+		}
+	
+	%>
+	
+	<a href="../notice/NoticeTable.jsp" >NOTICE_details</a>
+	<a href="../notice/noticeDetails.jsp" >add_NOTICE</a>
+	
 	<div id="intro">
 	
 	
-	<%String noticeUserid = request.getParameter("noticeUserid"); %>
+	<%String uid = session.getAttribute("loginID").toString(); %>
 	<form id="sendNoticeID">
-	<input type="hidden" name="findpage" id="findpage" value="singlenoticedetails" />
-	<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=noticeUserid %>>	
+		<input type="hidden" name="findpage" id="findpage" value="singlenoticedetails" />
+		<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=uid %> />	
 	</form>
 	
 	
@@ -121,39 +134,39 @@
        <hr>
        <fieldset >
        <div class="mb-3">
-       <form id="parseID" action="../payment/billbeforepayment.jsp" method="post">
-		<input id="puid" type="text" name="puid" />
-		<input type="button" name="sendID" id="sendID" class="mb-3" value="PAYMENT" />
-	</form>
-	
-	<form id="parseID1" action="../payment/paymentHistory.jsp" method="post">
-		<input id="puid1" type="text" name="puid" />
-		<input type="button" name="sendIDtoHistory" class="mb-3" id="sendIDtoHistory" value="History" />
-	</form>
-	<fieldset disabled>
+	<fieldset>
 	<div class="mb-3">
       <label for="disabledTextInput" class="form-label">Paid Status</label>
       <input type="text" id="paidstatusid" class="form-control" >
-    </div>
-    </fieldset>
-    </div>
-    </fieldset>
-    
-      <div class="card">
-   
-    <div class="card-body">
-      <h5 class="card-title">Billing Details</h5>
-      <hr>
-       <fieldset disabled>
-        
-    <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Bill Amount</label>
-      <input type="text" id="billamountid" class="form-control" >
-    </div>
-    </div>
   </div>
-  
-    </div>
+  <div class="mb-3">
+  	 <form id="parseID" action="../payment/billbeforepayment.jsp"   method="post">
+				<input id="puid" type="hidden" name="puid" value="<%=uid%>" />
+				<input type="button" name="sendID" id="sendID" class="btn-pay btn btn-primary mb-3" value="PAYMENT" />
+		</form>
+	
+			<form id="parseID1" action="../payment/paymentHistory.jsp" method="post">
+				<input id="puid1" type="hidden" name="puid" value="<%=uid%>"/>
+				<input type="button" name="sendIDtoHistory" class="btn btn-primary mb-3" id="sendIDtoHistory" value="History" />
+			</form>
+  </div>
+ </fieldset>
+ </div>
+ </fieldset>
+ </div>
+ 
+ </div>
+ 		<div class="card">   
+	    <div class="card-body">
+	      <h5 class="card-title">Billing Details</h5>
+	      <hr>
+	      <fieldset disabled>  
+			    <div class="mb-3">
+			      <label for="disabledTextInput" class="form-label">Bill Amount</label>
+			      <input type="text" id="billamountid" class="form-control" >
+			    </div>
+	    </fieldset>
+	    </div>
   </div>
 
 </div>

@@ -52,39 +52,49 @@ public class User {
 			}
 			
 			//html table open
-			output="<table border='1'>"
-					+ "<tr>"
-					+ "<th>UserID</th>"
-					+ "<th>Name</th>"
-					+ "<th>Address</th>"
-					+ "<th>Account Number</th>"
-					+ "<th>National ID</th>"
-					+ "<th>Email</th>"
-					+ "<th>Phone Number</th>"
-					+ "<th>Type</th>"
-					+ "<th>Username</th>"
-					+ "<th>Password</th>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td>"+UID+"</td>"
-					+ "<td>"+name+"</td>"
-					+ "<td>"+address+"</td>"
-					+ "<td>"+accnumber+"</td>"
-					+ "<td>"+nic+"</td>"
-					+ "<td>"+email+"</td>"
-					+ "<td>"+phone+"</td>"
-					+ "<td>"+type+"</td>"
-					+ "<td>"+uname+"</td>"
-					+ "<td>"+pass+"</td>"
-					+ "</tr>"
-					+ "</table>";					
-					
+//			output="<table border='1'>"
+//					+ "<tr>"
+//					+ "<th>UserID</th>"
+//					+ "<th>Name</th>"
+//					+ "<th>Address</th>"
+//					+ "<th>Account Number</th>"
+//					+ "<th>National ID</th>"
+//					+ "<th>Email</th>"
+//					+ "<th>Phone Number</th>"
+//					+ "<th>Type</th>"
+//					+ "<th>Username</th>"
+//					+ "<th>Password</th>"
+//					+ "</tr>"
+//					+ "<tr>"
+//					+ "<td>"+UID+"</td>"
+//					+ "<td>"+name+"</td>"
+//					+ "<td>"+address+"</td>"
+//					+ "<td>"+accnumber+"</td>"
+//					+ "<td>"+nic+"</td>"
+//					+ "<td>"+email+"</td>"
+//					+ "<td>"+phone+"</td>"
+//					+ "<td>"+type+"</td>"
+//					+ "<td>"+uname+"</td>"
+//					+ "<td>"+pass+"</td>"
+//					+ "</tr>"
+//					+ "</table>";	
+			
+			
+			
+			if(UID == null) {
+				output = "{\"status\":\"error\", \"data\": \"Login failed\"}";
+			} else {
+				output = "{\"status\":\"success\", \"data\": '"+UID+"', \"type\":"+type+"}";
+			}
+			
+			
+			
 		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		
-			output="User not Registered";
+			output = "{\"status\":\"error\", \"data\": \"Login failed\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;

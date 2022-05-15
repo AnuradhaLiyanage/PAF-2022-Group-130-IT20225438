@@ -296,3 +296,7 @@
 .btn-clear:hover {
 	background: #B22222 !important;
 }
+
+.btn-pay {
+	width: 300px;
+}

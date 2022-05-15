@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import models.User;
@@ -38,8 +41,60 @@ public class UserAPI extends HttpServlet {
 		//get page
 		String method = request.getParameter("method");
 		
+		// Login
+		if(method.equals("login")) {
+			
+			PrintWriter out = response.getWriter();
+			
+			// get session para
+			HttpSession session = request.getSession();
+			String output = "";
+			JSONArray list = new JSONArray();
+			
+			//get credentials
+			String username = request.getParameter("loginusername");
+			String password = request.getParameter("loginpassword");
+			
+			String authStatus = cus.login(username, password);
+			
+			// login success and unsuccess
+			JSONObject json = new JSONObject(authStatus);
+			String status = json.getString("status");
+			String UID  = json.getString("data");
+			String tp1  = json.getString("type");
+			
+			//System.out.println(UID);
+			
+			JSONObject obj = new JSONObject(authStatus);
+			
+			String msg;
+			String type;
+			
+			// if credentials success
+			if(status.equals("success")) {
+				
+				session.setAttribute("loginID", UID);
+				msg = "1";
+				type = tp1;
+				obj.put("msg", msg);
+				obj.put("type", type);
+				list.put(obj);
+				out.println(list.toString());
+				out.flush();
+				
+			} else {
+				// if credentials not success
+				msg = "3";
+				obj.put("msg", msg);
+				list.put(obj);
+				out.println(list.toString());
+				out.flush();
+			}
+			
+		}
+		
 		// clicked button delete
-		if (method.equals("delete")) {
+		else if (method.equals("delete")) {
 			String userId = request.getParameter("uid");
 			String output = cus.DeleteUserDetails(userId);
 			System.out.println(userId);
