@@ -18,6 +18,9 @@
 	<a href="pages/user/profile.jsp" >home</a>
 	<a href="pages/notice/NoticeTable.jsp" >NOTICE_details</a>
 	<a href="pages/notice/noticeDetails.jsp" >add_NOTICE</a>
+<a href="pages/billing/billingdetailsview.jsp" >View Bill</a>
+<a href="pages/billing/billinginsert.jsp" >add_Bill</a>
+
 
 	<form id="noticeFormID" action="pages/user/profile.jsp" method="post">
 		<input id="noticeUserid" type="text" name="noticeUserid" />
