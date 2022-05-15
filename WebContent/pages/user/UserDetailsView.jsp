@@ -12,6 +12,8 @@
 <title>UserView</title>
 </head>
 <style>
+
+
 .usertable  {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -29,6 +31,7 @@
 }
 </style>
 <body>
+
 <!-- use for java script file -->
 <input type="hidden" id="pageselector" value="userdetailspage" />
 
@@ -52,6 +55,7 @@
 		<a style="float: right; width: 200px;" class="btn btn-primary" href="../notice/NoticeTable.jsp" >NOTICE DETAILS</a>
 		<a style="float: right; width: 200px; margin-right: 10px;" class="btn btn-primary" href="../notice/noticeDetails.jsp" >ADD NOTICE</a>
 		<a style="float: right; width: 200px; margin-right: 10px;" class="btn btn-primary"  href="../billing/billingdetailsview.jsp" >VIEW BILL</a>
+		<a style="float: right; width: 200px; margin-right: 10px;" class="btn btn-primary" href="../billing/billinginsert.jsp" >ADD BILL</a>
 	</div>
 	
 	<table class= "usertable">
@@ -71,6 +75,6 @@
 	  </tr>
 	  <tbody id="user_table_nikela"></tbody>
 	</table>
-	</div>
+</div>
 </body>
 </html>

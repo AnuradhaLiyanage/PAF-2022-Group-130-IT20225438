@@ -12,7 +12,7 @@
 <title>userupdate</title>
 <style>
 #intro {
-background-image: url("");
+background-image: url("https://wallpapercave.com/wp/wp2857841.png");
 height: 100%;
 }
 </style>
@@ -50,7 +50,7 @@ height: 100%;
 <input type="text" id="userID" name="userID" class="form-control" readonly="readonly" >
 
 </div>
-<div class="mb-3">
+<div class="mb-3" >
 <label for="disabledTextInput" class="form-label">Name</label>
 <input type="text" id="cusname" name="cusname" class="form-control" >
 </div>
@@ -70,19 +70,25 @@ height: 100%;
 <label for="disabledTextInput" class="form-label">Email</label>
 <input type="text" id="cusemail" name="cusemail" class="form-control" >
 </div>
-<div class="mb-5">
+<div class="mb-3">
 <label for="disabledTextInput" class="form-label">Phone Number</label>
 <input type="text" id="cuspno" name="cuspno" class="form-control" >
 </div>
+<<<<<<< HEAD
+<div class="mb-3">
+<label for="disabledTextInput" class="form-label" >Type</label>
+<input type="text" id="custype" name="custype" class="form-control" >
+=======
 <div class="mb-5">
 <label for="disabledTextInput" class="form-label">Type</label>
 <input type="text" id="custype" name="custype" class="form-control" readonly="readonly">
+>>>>>>> branch 'master' of https://github.com/IT20281700/TestServices.git
 </div>
-<div class="mb-5">
+<div class="mb-3">
 <label for="disabledTextInput" class="form-label">Username</label>
 <input type="text" id="cusuname" name="cusuname" class="form-control" >
 </div>
-<div class="mb-5">
+<div class="mb-3">
 <label for="disabledTextInput" class="form-label">Password</label>
 <input type="text" id="cuspass" name="cuspass" class="form-control" >
 </div>

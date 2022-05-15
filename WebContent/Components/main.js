@@ -112,6 +112,7 @@ $(document).on("click", "#sendidtoupdate", (e) => {
 					
 					msg = data.responseJSON[0].msg
 					usertype = data.responseJSON[0].type
+					console.log(data.responseJSON)
 
 					if(msg == 1) {
 						if(usertype == "User") {

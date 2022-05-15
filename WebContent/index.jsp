@@ -12,11 +12,15 @@
 <script src="Components/jquery-3.6.0.min.js"></script>
 <script src="Components/main.js"></script>
 <title>Login</title>
-
+<style>
+#intro {
+background-image: url("https://wallpapercave.com/wp/wp2857841.png");
+height: 100%;
+}
+</style>
 </head>
 <body>
-
-<a href="pages/billing/billinginsert.jsp" >add_Bill</a>
+	
 
 	<%
 		if (session.getAttribute("Username") != null) {
@@ -72,14 +76,14 @@
                       style="color: #393f81;">Register here</a></p>
                  
                 </form>
-
+</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  
 </section>
 
 </body>

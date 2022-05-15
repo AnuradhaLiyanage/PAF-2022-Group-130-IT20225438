@@ -11,8 +11,15 @@
 <script src="../../Components/main.js"></script>
 <script src="../../Components/userJS.js"></script>
 <title>SignUp</title>
+<style>
+#signupinto {
+background-image: url("https://wallpapercave.com/wp/wp2857841.png");
+height: 100%;
+}
+</style>
 </head>
 <body>
+<div id="signupinto">
 <input type="hidden" id="pageselector" value="signuppage" />
 
 	<div id="intro">
@@ -90,7 +97,7 @@
 		</div> 
 		<!--container end.//-->
 	</div>
-	
+	</div>
 
 </body>
 </html>

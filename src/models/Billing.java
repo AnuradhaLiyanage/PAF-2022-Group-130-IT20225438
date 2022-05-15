@@ -11,8 +11,8 @@ import database.DBConnect;
 
 public class Billing {
 	
-	public String InsertBillingDetails(String uid, String name, String sdate, String edate, String acconumber, String bilnumber,
-			String unit, Float amount ) {
+	public String InsertBillingDetails(String uid, String name, String sdate, String edate, int acconumber, int bilnumber,
+			int unit, Float amount ) {
 		// TODO Auto-generated method stub
 		String output="";
 		
@@ -27,15 +27,15 @@ public class Billing {
 		    int rs=stmt.executeUpdate(sql);
 		    
 		    if(rs>0) {
-		    	output="<h4>Billing Details Successfully Inserted</h4>";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Successfully Inserted!\"}";
 		    }else {
-		    	output="Billings Details not Insert";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 		    }
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			
-			output="Billing Details not Insert";
+			output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -128,10 +128,14 @@ public class Billing {
 	public String billingDetails(String acconumber) {
 	String output="";
 
+
+
 	try {
 	//check database connection
 	Connection con=DBConnect.connect();
 	if(con==null) {return "Database not connected";}
+
+
 
 	//validate username and password
 	Statement stmt=con.createStatement();

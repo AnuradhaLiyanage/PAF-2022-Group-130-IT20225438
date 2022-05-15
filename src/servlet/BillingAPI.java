@@ -36,13 +36,29 @@ public class BillingAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		String page = request.getParameter("page");
 		
-		
 		// view single update details
 		if (page.equals("viewsinglebill")) {
 			String accountNumber = request.getParameter("upaccnumber");
 			
 			String output = billing.billingDetails(accountNumber);
 			response.getWriter().write(output);
+		}
+
+		
+		if(page.equals("billinsertpage")) {
+			// insert details
+			String billinguid = request.getParameter("billinguid");
+			String billingusername = request.getParameter("billingusername");
+			String billingstartdate = request.getParameter("billingstartdate");
+			String billingenddate = request.getParameter("billingenddate");
+			int billingaccountnumber = Integer.parseInt(request.getParameter("billingaccountnumber"));
+			int billingbill = Integer.parseInt(request.getParameter("billno"));
+			int billingunit = Integer.parseInt(request.getParameter("billingunit"));
+			Float billingamount = Float.parseFloat(request.getParameter("billingamount"));
+			
+			String output = billing.InsertBillingDetails(billinguid, billingusername, billingstartdate, billingenddate, billingaccountnumber, billingbill, billingunit, billingamount);
+			response.getWriter().write(output);
+			
 		}
 		
 	}
