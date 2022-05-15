@@ -4,6 +4,7 @@
  $(document).ready(function()
 	{
 	 $("#error").hide();
+
 	 	 
 	 $.ajax(
 		{
@@ -64,6 +65,8 @@
 
 $(document).ready(function(){
 	
+	if($("#findpage").val() != "singlenoticedetails") {
+		
 	$.ajax(
 		{
 			url: "/PAF-2022-Group-130/NoticeAPI",
@@ -141,22 +144,23 @@ function onNoticeLoaded(response, status) {
 			updateForm.appendChild(deleteBtn);
 
 		
-		row.appendChild(id);	
-		row.appendChild(userid);
-		row.appendChild(username);
-		row.appendChild(date);
-		row.appendChild(time);
-		row.appendChild(type);
-		row.appendChild(notice);
-		row.appendChild(updateForm);
-
-		
-		
-		tbody.appendChild(row);
+			row.appendChild(id);	
+			row.appendChild(userid);
+			row.appendChild(username);
+			row.appendChild(date);
+			row.appendChild(time);
+			row.appendChild(type);
+			row.appendChild(notice);
+			row.appendChild(updateForm);
+	
+			
+			
+			tbody.appendChild(row);
 		
 		
 	})
-}
+}	
+	}
 
 })
 	

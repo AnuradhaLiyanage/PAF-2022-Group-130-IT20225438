@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import database.DBConnect;
 
 public class Billing {
@@ -41,12 +44,11 @@ public class Billing {
 	
 	//update billing details
 	
-	public String UpdateBillingDetails(String uid, String name, String sdate, String edate, String acconumber, String bilnumber, String unit,
+	public String UpdateBillingDetails(String uid, String name, String sdate, String edate, int acconumber, int bilnumber, int unit,
 			Float amount ) {
 		// TODO Auto-generated method stub
 		String output="";
-		String erroutput="";
-		boolean  isUpdated=false;
+		
 		
 		try {
 			// check db connection
@@ -60,29 +62,21 @@ public class Billing {
 						int result = stmt1.executeUpdate(sql1);
 						
 						if (result > 0) {
-							isUpdated = true;
+							output = "{\"status\":\"success\", \"data\":\"Billing details successfully updated!!!\"}";
 						} else {
-							isUpdated = false;
+							output = "{\"status\":\"error\", \"data\":\"Billing Details Not Updated!\"}";
 						}
 						
 						output = "<h4>Billing Details successfully updated!!!</h4>";
 							
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-
-			erroutput="Billing Details not Updated";
+			output = "{\"status\":\"error\", \"data\":\"Notice Details Not Updated!\"}";
 			System.err.println(e.getMessage());
 			
 		}
-		if (isUpdated) {
-			return output;
-			
-			}
-				
-			
-		
-		return erroutput="Billing Details not Updated";
+		return output;
+
 	}
 	
 	
@@ -215,5 +209,59 @@ public class Billing {
 	}
 	return output;
 	}
+	
+	
+	
+	//Get All billing details by Admin
+	public String getallbilldetails() {
+		// TODO Auto-generated method stub
+		String output="";
+		try {
+			// check database connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }	
+			
+			//delete user details
+			Statement stmt=con.createStatement();
+			String sql = "SELECT * FROM billing";
+			
+			ResultSet rs=stmt.executeQuery(sql);
+			
+			JSONArray jsonAll = new JSONArray();
+			
+			int i = 0;
+			
+			
+			while(rs.next()) {
+			
+			
+				JSONObject json = new JSONObject();
+				json.put("userid", rs.getString(1));
+				json.put("name", rs.getString(2));
+				json.put("startdate", rs.getString(3));
+				json.put("enddate", rs.getString(4));
+				json.put("accno", rs.getString(5));
+				json.put("billno", rs.getString(6));
+				json.put("noofunits", rs.getString(7));
+				json.put("billamount", rs.getString(8));
+				
+				jsonAll.put(i,json);
+				i = i+1;
+				
+				
+			}
+			 System.out.println(jsonAll);
+			
+			output = "{\"status\":\"success\", \"data\":"+jsonAll+"}";
+							
+		} catch (Exception e) {
+			// TODO: handle exception
+			output="{\"status\":\"error\", \"data\":\"Error while getting all notice details\"}";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+	}
+
 	
 }

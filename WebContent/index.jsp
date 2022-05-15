@@ -20,16 +20,16 @@ height: 100%;
 </style>
 </head>
 <body>
-<div id="intro">
-	<a href="pages/user/profile.jsp" >home</a>
-	<a href="pages/notice/NoticeTable.jsp" >NOTICE_details</a>
-	<a href="pages/notice/noticeDetails.jsp" >add_NOTICE</a>
 
-	<form id="noticeFormID" action="pages/user/profile.jsp" method="post">
-		<input id="noticeUserid" type="text" name="noticeUserid" />
-		<input type="button" name="sendID" id="noticeID" value="NOTICE" />
-	</form>
-	
+
+<a href="pages/billing/billingdetailsview.jsp" >View Bill</a>
+<a href="pages/billing/billinginsert.jsp" >add_Bill</a>
+
+	<%
+		if (session.getAttribute("Username") != null) {
+			response.sendRedirect("pages/user/profile.jsp");
+		}
+	%>
 
 	
 <section class="vh-100" >
@@ -45,7 +45,7 @@ height: 100%;
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form id="frm-login" name="frm-login">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -56,21 +56,23 @@ height: 100%;
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example17">Username</label>
-                    <input type="email" id="form2Example17" class="form-control form-control-lg" required/>
+                    <input id="loginusername" name="loginusername" type="text" class="form-control form-control-lg" required/>
 
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example27">Password</label>
-                    <input type="password" id="form2Example27" class="form-control form-control-lg" required/>
+                    <input type="password" id="loginpassword" name="loginpassword" class="form-control form-control-lg" required/>
                    
                   </div>
+                  
+                  <input type="hidden" name="method" id="method" value="login"/>
 
                   <div class="pt-1 mb-4">
-                  <a href="pages/user/UserDetailsView.jsp">
-                    <button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
-                    </a>
+                    <button id="loginBtn" class="btn btn-dark btn-lg btn-block" type="button">Login</button>
                   </div>
+                  
+                  <div class="user_error" id="login-error">error</div>
 
                  
                   <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="pages/user/signup.jsp"
@@ -84,7 +86,7 @@ height: 100%;
         </div>
       </div>
     </div>
-  </div>
+  
 </section>
 
 </body>

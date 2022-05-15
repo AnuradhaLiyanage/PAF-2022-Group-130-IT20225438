@@ -19,6 +19,14 @@ height: 100%;
 </head>
 <body>
 
+	<% 
+		
+		if(session.getAttribute("loginID") == null) {
+			response.sendRedirect("../../");
+		}
+	
+	%>
+
 	<%String uid = request.getParameter("uid"); %>
 	<form id="sendCusUid">
 		<input type="hidden" name="method" id="method" value="singlecusdetails" />
@@ -66,9 +74,15 @@ height: 100%;
 <label for="disabledTextInput" class="form-label">Phone Number</label>
 <input type="text" id="cuspno" name="cuspno" class="form-control" >
 </div>
+<<<<<<< HEAD
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label" >Type</label>
 <input type="text" id="custype" name="custype" class="form-control" >
+=======
+<div class="mb-5">
+<label for="disabledTextInput" class="form-label">Type</label>
+<input type="text" id="custype" name="custype" class="form-control" readonly="readonly">
+>>>>>>> branch 'master' of https://github.com/IT20281700/TestServices.git
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Username</label>
