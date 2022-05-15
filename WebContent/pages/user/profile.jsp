@@ -30,13 +30,14 @@
 	
 	%>
 	
-	<a href="../notice/NoticeTable.jsp" >NOTICE_details</a>
-	<a href="../notice/noticeDetails.jsp" >add_NOTICE</a>
+	<a href="../logout.jsp" >logout</a>
 	
 	<div id="intro">
 	
 	
 	<%String uid = session.getAttribute("loginID").toString(); %>
+	
+	
 	<form id="sendNoticeID">
 		<input type="hidden" name="findpage" id="findpage" value="singlenoticedetails" />
 		<input type="hidden" name="noticeUserid" id="noticeUserid" value=<%=uid %> />	

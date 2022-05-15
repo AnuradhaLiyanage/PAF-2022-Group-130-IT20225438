@@ -19,6 +19,14 @@ height: 100%;
 </head>
 <body>
 
+	<% 
+		
+		if(session.getAttribute("loginID") == null) {
+			response.sendRedirect("../../");
+		}
+	
+	%>
+
 	<%String uid = request.getParameter("uid"); %>
 	<form id="sendCusUid">
 		<input type="hidden" name="method" id="method" value="singlecusdetails" />
@@ -68,7 +76,7 @@ height: 100%;
 </div>
 <div class="mb-5">
 <label for="disabledTextInput" class="form-label">Type</label>
-<input type="text" id="custype" name="custype" class="form-control" >
+<input type="text" id="custype" name="custype" class="form-control" readonly="readonly">
 </div>
 <div class="mb-5">
 <label for="disabledTextInput" class="form-label">Username</label>
