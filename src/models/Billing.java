@@ -11,8 +11,8 @@ import database.DBConnect;
 
 public class Billing {
 	
-	public String InsertBillingDetails(String uid, String name, String sdate, String edate, String acconumber, String bilnumber,
-			String unit, Float amount ) {
+	public String InsertBillingDetails(String uid, String name, String sdate, String edate, int acconumber, int bilnumber,
+			int unit, Float amount ) {
 		// TODO Auto-generated method stub
 		String output="";
 		
@@ -27,15 +27,15 @@ public class Billing {
 		    int rs=stmt.executeUpdate(sql);
 		    
 		    if(rs>0) {
-		    	output="<h4>Billing Details Successfully Inserted</h4>";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Successfully Inserted!\"}";
 		    }else {
-		    	output="Billings Details not Insert";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 		    }
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			
-			output="Billing Details not Insert";
+			output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -172,30 +172,40 @@ public class Billing {
 
 
 	//html table open
-	output="<table border='1'>"
-	+ "<tr>"
-	+ "<th>UserID</th>"
-	+ "<th>Name</th>"
-	+ "<th>StartDate</th>"
-	+ "<th>EndDate</th>"
-	+ "<th>AccountNumber</th>"
-	+ "<th>BillNumber</th>"
-	+ "<th>NoofUnit</th>"
-	+ "<th>BillAmount</th>"
-	+ "</tr>"
-	+ "<tr>"
-	+ "<td>"+UserID+"</td>"
-	+ "<td>"+Name+"</td>"
-	+ "<td>"+StartDate+"</td>"
-	+ "<td>"+EndDate+"</td>"
-	+ "<td>"+AccountNumber+"</td>"
-	+ "<td>"+BillNumber+"</td>"
-	+ "<td>"+NoofUnit+"</td>"
-	+ "<td>"+BillAmount+"</td>"
-	+ "</tr>"
-	+ "</table>";
+//	output="<table border='1'>"
+//	+ "<tr>"
+//	+ "<th>UserID</th>"
+//	+ "<th>Name</th>"
+//	+ "<th>StartDate</th>"
+//	+ "<th>EndDate</th>"
+//	+ "<th>AccountNumber</th>"
+//	+ "<th>BillNumber</th>"
+//	+ "<th>NoofUnit</th>"
+//	+ "<th>BillAmount</th>"
+//	+ "</tr>"
+//	+ "<tr>"
+//	+ "<td>"+UserID+"</td>"
+//	+ "<td>"+Name+"</td>"
+//	+ "<td>"+StartDate+"</td>"
+//	+ "<td>"+EndDate+"</td>"
+//	+ "<td>"+AccountNumber+"</td>"
+//	+ "<td>"+BillNumber+"</td>"
+//	+ "<td>"+NoofUnit+"</td>"
+//	+ "<td>"+BillAmount+"</td>"
+//	+ "</tr>"
+//	+ "</table>";
 
-
+	JSONObject json = new JSONObject();
+	json.put("userid", UserID);
+	json.put("name", Name);
+	json.put("sdate", StartDate);
+	json.put("edate", EndDate);
+	json.put("accno", AccountNumber);
+	json.put("billno", BillNumber);
+	json.put("noofunit", NoofUnit);
+	json.put("billamount", BillAmount);
+	
+	output = "{\"status\":\"success\",\"data\":"+json+"}";
 
 
 

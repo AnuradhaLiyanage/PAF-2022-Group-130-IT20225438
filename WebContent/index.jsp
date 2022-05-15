@@ -20,18 +20,14 @@ height: 100%;
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
+
 
 
 <a href="pages/billing/billingdetailsview.jsp" >View Bill</a>
 <a href="pages/billing/billinginsert.jsp" >add_Bill</a>
->>>>>>> branch 'master' of https://github.com/IT20281700/TestServices.git
 
-<<<<<<< HEAD
 	
-=======
->>>>>>> branch 'master' of https://github.com/IT20281700/TestServices.git
+
 	<%
 		if (session.getAttribute("Username") != null) {
 			response.sendRedirect("pages/user/profile.jsp");

@@ -214,127 +214,87 @@ $(document).ready( ()=> {
 
 //function for button make a payment
 $("#noticebtnSave").click(function() {
-	let noticeuid = document.getElementById("noticeuid");
-	let noticeusername = document.getElementById("noticeusername");
-	let noticedate = document.getElementById("noticedate");
-	let noticetime = document.getElementById("noticetime");
-	let noticetype = document.getElementById("noticetype");
-	let noticemsg = document.getElementById("noticemsg");
+	let billinguid = document.getElementById("billinguid");
+	let billingusername = document.getElementById("billingusername");
+	let billingstartdate = document.getElementById("billingstartdate");
+	let billingenddate = document.getElementById("billingenddate");
+	let billingaccountnumber = document.getElementById("billingaccountnumber");
+	let billingbill = document.getElementById("billingbill");
+	let billingamount = document.getElementById("billingamount");
 	
 	// payment method form validations
-	if(noticeuid.value === "") {
+	if(billinguid.value === "") {
 		$("#pmethoderror").text("Enter User ID").show();
-		noticeuid.classList.add("pmf")
-		noticeuid.focus();
+		billinguid.classList.add("pmf")
+		billinguid.focus();
 	}
-	else if(noticeusername.value === "") {
-		noticeuid.classList.remove("pmf")
-		noticeusername.classList.add("pmf")
-		noticeusername.focus();
+	else if(billingusername.value === "") {
+		billinguid.classList.remove("pmf")
+		billingusername.classList.add("pmf")
+		billingusername.focus();
 		$("#pmethoderror").text("Enter User Name").show();
 	}
-	else if(noticedate.value === "") {
-		noticeusername.classList.remove("pmf")
-		noticedate.classList.add("pmf")
-		noticedate.focus();
+	else if(billingstartdate.value === "") {
+		billingusername.classList.remove("pmf")
+		billingstartdate.classList.add("pmf")
+		billingstartdate.focus();
 		$("#pmethoderror").text("Enter Date").show();
 	}
-	else if(noticetime.value === "") {
-		noticedate.classList.remove("pmf")
-		noticetime.classList.add("pmf")
-		noticetime.focus();
+	else if(billingenddate.value === "") {
+		billingstartdate.classList.remove("pmf")
+		billingenddate.classList.add("pmf")
+		billingenddate.focus();
 		$("#pmethoderror").text("Enter Time").show();
 	}
-	else if(noticetype.value === "") {
-		noticetype.classList.add("pmf")
-		noticetype.focus();
+	else if(billingaccountnumber.value === "") {
+		billingenddate.classList.remove("pmf")
+		billingaccountnumber.classList.add("pmf")
+		billingaccountnumber.focus();
 		$("#pmethoderror").text("Enter Notice Type").show();
 	}
-	else if(noticemsg.value === "") {
-		noticetype.classList.remove("pmf")
-		noticemsg.classList.add("pmf")
-		noticemsg.focus();
-		$("#pmethoderror").text("Enter Notice Description").show();
+	else if(billingbill.value === "") {
+		billingaccountnumber.classList.remove("pmf")
+		billingbill.classList.add("pmf")
+		billingbill.focus();
+		$("#pmethoderror").text("Enter Time").show();
 	}
-	else if(pcardexpDate.value.length === 5) {
+	else if(billingamount.value === "") {
+		billingbill.classList.remove("pmf")
+		billingamount.classList.add("pmf")
+		billingamount.focus();
+		$("#pmethoderror").text("Enter Time").show();
+	}
+	else {
 
-			if(pcardexpDate.value.charAt(0) != "0" && pcardexpDate.value.charAt(0) != "1") {
-				pcardexpDate.focus();
-				$("#pmethoderror").text("Wrong month").show();
-			}
-			else{
-				if(pcardexpDate.value.charAt(0) === "1" && pcardexpDate.value.charAt(1) > "2") {
-					pcardexpDate.focus();
-					$("#pmethoderror").text("Wrong month").show();
-				}
-				else{
-					if(pcardexpDate.value.charAt(3) <"2" || pcardexpDate.value.charAt(4) <"2") {
-						pcardexpDate.focus();
-						$("#pmethoderror").text("Wrong year").show();
-					}
-					else {
-						pcardexpDate.classList.remove("pmf")
-						$("#pmethoderror").hide();
-						// show saving loader
-						$("#loaderBG").show();
-						// get values by id
-						let uid = $("#noticeuid").val();
-						let cardusername = $("#noticeusername").val();
-						let carddate = $("#noticedate").val();
-						let cardtime = $("#noticetime").val();
-						let cardtype = $("#noticetype").val();
-						let cardnotice = $("#noticemsg").val();
-						let insert = "insert";
-						
-						var dataset = { uid, cardusername, carddate, cardtime, cardtype, cardnotice, insert };
-						
-						$.ajax(
-							{
-								url:	"/PAF-2022-Group-130/NoticeAPI",
-								type:	"POST",
-								data:	dataset,
-								dataType:	"JSON",
-								complete:	function(response, status) {
-									onInsertComplete(response.responseText, status);
-								}
-							}
-						)
-						
-						function onInsertComplete(response, status) {
-							if(status === "success") {
-								var result = JSON.parse(response);
-								console.log(result);
-								if(result.status.trim() === "success") {
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										$("#loader").hide();
-										$("#payment-accept").show();
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2000); // 👈️ time in milliseconds
-									
-									// redirecting to home page after payment success;
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										window.location = "../../";
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2500); // 👈️ time in milliseconds
-
-								}
-								
-								else {
-									// payment unsuccess
-								}
-							}
-						}
-					}
+		// no errors
+		noticemsg.classList.remove("pmf")
+		$("#error").hide();
+		
+		// data inserting
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type: "POST",
+				data: $("#insertBills").serialize(),
+				dataType: "text",
+				complete: function(response, status) {
+					onInsertComplete(response.responseText, status);
 				}
 			}
+		)
+		
+		// when insert request complete
+		function onInsertComplete(responseText, status) {
+			if(status == "success") {
+				var result = JSON.parse(responseText);
+				if (result.status == "success") {
+					alert(result.data);
+					window.location = "../../";
+				} else {
+					alert(result.data);
+				}
+			}
+		}	
 			
 	}
 	

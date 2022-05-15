@@ -35,7 +35,29 @@ public class BillingAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//check page
+	String page = request.getParameter("findpage");
 		
+		if(page.equals("billinsertpage")) {
+			// insert details
+			String billinguid = request.getParameter("billinguid");
+			String billingusername = request.getParameter("billingusername");
+			String billingstartdate = request.getParameter("billingstartdate");
+			String billingenddate = request.getParameter("billingenddate");
+			int billingaccountnumber = Integer.parseInt(request.getParameter("billingaccountnumber"));
+			int billingbill = Integer.parseInt(request.getParameter("billingbill"));
+			int billingunit = Integer.parseInt(request.getParameter("billingunit"));
+			Float billingamount = Float.parseFloat(request.getParameter("billingamount"));
+			
+			String output = billing.InsertBillingDetails(billinguid, billingusername, billingstartdate, billingenddate, billingaccountnumber, billingbill, billingunit, billingamount);
+			response.getWriter().write(output);
+			
+		} else if(page.equals("singlebilldetails")) {
+			// get details
+			String acconumber = request.getParameter("noticeUserid");
+			String output = billing.billingDetails(acconumber);
+			System.out.println(acconumber);
+			response.getWriter().write(output);
+		}
 		
 	}
 
