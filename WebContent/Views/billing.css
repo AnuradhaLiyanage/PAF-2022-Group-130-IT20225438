@@ -1,1 +1,11 @@
 @charset "ISO-8859-1";
+
+.divider-text {
+    position: absolute;
+    text-align: right;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
