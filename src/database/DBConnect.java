@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DBConnect {
 	// Variables for database details
-	private static String url = "jdbc:mysql://localhost:3306/electro";
+	private static String url = "jdbc:mysql://localhost:3307/electro";
 	private static String dbuser = "root";
 	private static String dbpass = "root";
 	private static Connection con;
