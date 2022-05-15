@@ -4,33 +4,54 @@
 	 $("#alertSuccess").hide();
 	 $("#alertError").hide();
 	 
-	 $.ajax(
-		{
-			url: "/PAF-2022-Group-130/BillingAPI",
-			type: "POST",
-			data: $("#sendAccountNumber").serialize(),
-			dataType: "text",
-			complete: function(response,status)
-			{
-				//onComplete(response.responseText,status)
-			}
-		}
+	 // viewing single bill for update
+	 if($("#page").val() === "viewsinglebill") {
 		
-	)
+			$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type: "POST",
+				data: $("#sendBillID").serialize(),
+				dataType: "text",
+				complete: function(response,status)
+				{
+					if(status == "success") {
+						var result = JSON.parse(response.responseText);
+						if(result.status == "success") {
+							console.log(result.data)
+							billinguserid.value = result.data.uid;
+							billingname.value = result.data.name;
+							billingsdate.value = result.data.sdate;
+							billingedate.value = result.data.edate;
+							billingaccno.value = result.data.accno;
+							billingbillno.value = result.data.billnum;
+							billingunit.value = result.data.units;
+							billingamount.value = result.data.billamount;
+						}
+					}
+				}
+			}
+			
+		)		
+	}
 	
 		
 $(document).ready(function(){
 	
-	$.ajax(
-		{
-			url: "/PAF-2022-Group-130/BillingAPI",
-			type:	"GET",
-			dataType:	"text",
-			complete:	function(response,status){
-				onBillingLoaded(response.responseText,status);
+	 if($("#page").val() === "viewallbills") {
+		
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type:	"GET",
+				dataType:	"text",
+				complete:	function(response,status){
+					onBillingLoaded(response.responseText,status);
+				}
 			}
-		}
-	)
+		)
+		
+	}
 	
 		//function for get all billing details
 function onBillingLoaded(response, status) {
@@ -130,13 +151,13 @@ function senduidForUpdate(accNo){
 	let uidValue = document.createElement("input");
 	uidValue.hidden = true;
 	uidValue.id = "uidvalue"
-	uidValue.name = "uidtobeupdate"
+	uidValue.name = "accnotobeupdate"
 	uidValue.value = accNo;
 	
 	let form = document.getElementById("updateform");
 	
 	form.appendChild(uidValue)
-	
+
 	$("#updateform").submit();
 }
 
@@ -169,17 +190,15 @@ function DeleteRow(accno){
 // update
 $(document).ready( ()=> {
 	
-	$("#btnnoticeUpdate").click(function() {
-		let userID = $("#billinguserid").val();
+	$("#btnUpdate").click(function() {
 		let name = $("#billingname").val();
 		let sdate = $("#billingsdate").val();
 		let edate = $("#billingedate").val();
 		let accno = $("#billingaccno").val();
-		let billno = $("#billingbillno").val();
 		let billunit = $("#billingunit").val();
 		let billamount = $("#billingamount").val();
 		
-		var updateSet = { userID, name, sdate, edate, accno, billno, billunit, billamount }
+		var updateSet = {  name, sdate, edate, accno, billunit, billamount }
 		
 		$.ajax(
 			{
@@ -195,6 +214,7 @@ $(document).ready( ()=> {
 		
 		// when updated
 		function onUpdateComplete(responseText, status) {
+			console.log(responseText)
 			if(status == "success") {
 				var result = JSON.parse(responseText);
 				

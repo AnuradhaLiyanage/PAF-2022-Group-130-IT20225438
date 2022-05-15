@@ -16,8 +16,6 @@
 </head>
 <body>
 
-
-<a href="pages/billing/billingdetailsview.jsp" >View Bill</a>
 <a href="pages/billing/billinginsert.jsp" >add_Bill</a>
 
 	<%

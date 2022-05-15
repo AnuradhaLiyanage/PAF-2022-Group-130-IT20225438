@@ -32,6 +32,16 @@
 <!-- use for java script file -->
 <input type="hidden" id="pageselector" value="userdetailspage" />
 
+<a href="../logout.jsp" >logout</a>
+
+	<% 
+		
+		if(session.getAttribute("loginID") == null) {
+			response.sendRedirect("../../");
+		}
+	
+	%>
+
 <h1 class="mb-3 d-flex justify-content-center header" style="padding: 40px; padding-bottom: 60px;">Customer Details</h1>
 
 
@@ -39,8 +49,9 @@
 	<div class=container>
 	
 	<div style="padding-bottom: 20px; width: 100%; float: right;">
-		<a style="float: right;" class="btn btn-primary" href="../notice/NoticeTable.jsp" >Notice Details</a>
-		<a style="float: right;  margin-right: 10px;" class="btn btn-primary" href="../notice/noticeDetails.jsp" >Add NOTICE</a>
+		<a style="float: right; width: 200px;" class="btn btn-primary" href="../notice/NoticeTable.jsp" >NOTICE DETAILS</a>
+		<a style="float: right; width: 200px; margin-right: 10px;" class="btn btn-primary" href="../notice/noticeDetails.jsp" >ADD NOTICE</a>
+		<a style="float: right; width: 200px; margin-right: 10px;" class="btn btn-primary"  href="../billing/billingdetailsview.jsp" >VIEW BILL</a>
 	</div>
 	
 	<table class= "usertable">

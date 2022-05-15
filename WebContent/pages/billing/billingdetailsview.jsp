@@ -30,6 +30,9 @@
 </style>
 <body>
 <h1 class="mb-3 d-flex justify-content-center" > Billing Details</h1>
+
+	<input type="hidden" name="page" id="page" value="viewallbills"/>
+
 	<div class=container>
 	<table class= "usertable">
 	  <tr class="billingtr">
@@ -42,20 +45,8 @@
 	    <th class="billingtd">No of Unit</th>
 	    <th class="billingtd">Amount</th>
 	    <th class="billingtd">Action</th>
-	    
-	    
-	    
 	  </tr>
-	  <tbody id="user_table_billing"></tbody>
-	  
-	<!--    
-	    <td class="billingtd">
-	    <a href="../billing/billingdetailsview.jsp" class=" btn btn-success" role="button">Update</a>
-	    <button type="submit" class="btn btn-danger" id="remove">Delete</button>
-	   
-	    </td>
-	    -->  
-	 
+	 <tbody id="user_table_billing"></tbody>
 	
 	</table>
 	</div>
