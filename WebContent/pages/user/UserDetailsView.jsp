@@ -12,6 +12,8 @@
 <title>UserView</title>
 </head>
 <style>
+
+
 .usertable  {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -29,6 +31,7 @@
 }
 </style>
 <body>
+
 <!-- use for java script file -->
 <input type="hidden" id="pageselector" value="userdetailspage" />
 
@@ -61,8 +64,8 @@
 	 
 	
 	</table>
-	</div>
-
+	
+</div>
 
 
 </body>
