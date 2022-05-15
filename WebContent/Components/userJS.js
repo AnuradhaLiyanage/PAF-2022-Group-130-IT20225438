@@ -149,10 +149,15 @@ function DeleteRow(uid){
 			
 	)
 	function OnDelete(responseText,status){
+	 
+		var result = JSON.parse(responseText);
 		if(status === "success") {
-			alert ("successfull deleted!!!")
+			alert ("successfull deleted!!!");
 			window.location.reload();	
+		}else {
+			console.log(result.data);
 		}
+	
 	}
 }	
 
@@ -257,7 +262,8 @@ function onInsertComplete(responseText, status) {
 	if(status == "success") {
 		var result = JSON.parse(responseText);
 		if (result.status === "success") {
-			console.log(result.data);
+			alert ("User Details Successfull Inserted!!!");
+			windo.location.reload();
 		} else {
 			console.log(result.data);
 		}
