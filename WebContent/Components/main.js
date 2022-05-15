@@ -4,7 +4,7 @@
 // send the user id from profile to billbeforepay
 $(document).on("click","#sendID",function(event) {
 	if($("#puid").val().trim() != "") {
-	
+		
 		$("#parseID").submit();
 	
 	} else {
@@ -72,5 +72,16 @@ $(document).on("click", "#sendidtoupdate", (e) => {
  */
  
  /**
- Notice
- */
+ Notice */
+ // send the user id from profile to billbeforepay
+$(document).on("click","#noticeID",function(event) {
+	if($("#noticeUserid").val().trim() != "") {
+	
+		$("#noticeFormID").submit();
+	
+	} else {
+		alert("Enter the User ID")
+	}
+		
+});
+ 

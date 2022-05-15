@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="Views/user.css" />
-<link rel="stylesheet" type="text/css" href="Views/notice.css" />
+<link rel="stylesheet" type="text/css" href="Views/notices.css" />
 <link rel="stylesheet" type="text/css" href="Views/payments.css" />
 <link rel="stylesheet" type="text/css" href="Views/billing.css" />
 <script src="Components/jquery-3.6.0.min.js"></script>
@@ -16,7 +16,16 @@
 </head>
 <body>
 	<a href="pages/user/profile.jsp" >home</a>
+	<a href="pages/notice/NoticeTable.jsp" >NOTICE_details</a>
+	<a href="pages/notice/noticeDetails.jsp" >add_NOTICE</a>
 
+	<form id="noticeFormID" action="pages/user/profile.jsp" method="post">
+		<input id="noticeUserid" type="text" name="noticeUserid" />
+		<input type="button" name="sendID" id="noticeID" value="NOTICE" />
+	</form>
+	
+
+	
 <section class="vh-100" >
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
