@@ -90,6 +90,7 @@ $(document).on("click", "#sendidtoupdate", (e) => {
 		$("#login-error").hide();
 		
 		var msg = null;
+		var usertype = null;
 		
 		var data = $("#frm-login").serialize();
 		
@@ -110,9 +111,15 @@ $(document).on("click", "#sendidtoupdate", (e) => {
 					
 					
 					msg = data.responseJSON[0].msg
+					usertype = data.responseJSON[0].type
 
 					if(msg == 1) {
-						window.location.replace("pages/user/profile.jsp");
+						if(usertype == "User") {
+							window.location.replace("pages/user/profile.jsp");
+						} else if (usertype == "Manager") {
+							window.location.replace("pages/user/UserDetailsView.jsp");
+						}
+						
 					} else if(msg == 3) {
 						$("#login-error").text("Your username or password incorrect").show();
 					} else {

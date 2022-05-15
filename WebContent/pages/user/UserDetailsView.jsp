@@ -12,6 +12,8 @@
 <title>UserView</title>
 </head>
 <style>
+
+
 .usertable  {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -29,11 +31,21 @@
 }
 </style>
 <body>
+
 <!-- use for java script file -->
 <input type="hidden" id="pageselector" value="userdetailspage" />
 
-<h1 class="mb-3 d-flex justify-content-center" > Customer Details</h1>
+<h1 class="mb-3 d-flex justify-content-center header" style="padding: 40px; padding-bottom: 60px;">Customer Details</h1>
+
+
+
 	<div class=container>
+	
+	<div style="padding-bottom: 20px; width: 100%; float: right;">
+		<a style="float: right;" class="btn btn-primary" href="../notice/NoticeTable.jsp" >Notice Details</a>
+		<a style="float: right;  margin-right: 10px;" class="btn btn-primary" href="../notice/noticeDetails.jsp" >Add NOTICE</a>
+	</div>
+	
 	<table class= "usertable">
 	  <tr class="usertr">
 	    <th class="usertd">UserID</th>
@@ -50,20 +62,7 @@
 	    
 	  </tr>
 	  <tbody id="user_table_nikela"></tbody>
-	  
-	<!--    
-	    <td class="usertd">
-	    <a href="../user/userUpdate.jsp" class=" btn btn-success" role="button">Update</a>
-	    <button type="submit" class="btn btn-danger" id="remove">Delete</button>
-	   
-	    </td>
-	    -->  
-	 
-	
 	</table>
-	</div>
-
-
-
+</div>
 </body>
 </html>
