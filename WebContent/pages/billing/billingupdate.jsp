@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../../Views/billing.css" />
-<script src="../../Components/jquery-3.2.1.min.js"></script>
+<script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
 <title>Billing Details Update</title>
 <style>
@@ -32,35 +32,35 @@ height: 100%;
 <fieldset >
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">UserID</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billinguserid" class="form-control" >
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Name</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingname" class="form-control" >
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Start Date</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingsdate" class="form-control" >
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">End Date</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingedate" class="form-control" >
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Account Number</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingaccno" class="form-control" >
 </div>
 <div class="mb-3">
 <label for="disabledTextInput" class="form-label">Bill Number</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingbillno" class="form-control" >
 </div>
 <div class="mb-5">
 <label for="disabledTextInput" class="form-label">Unit</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingunit" class="form-control" >
 </div>
 <div class="mb-5">
 <label for="disabledTextInput" class="form-label">Amount</label>
-<input type="text" id="disabledTextInput" class="form-control" >
+<input type="text" id="billingamount" class="form-control" >
 </div>
 </fieldset>
   <button type="submit" class="d-grid gap-2 col-6 mx-auto btn btn-success" id="btnUpdate">Update</button><br><br>
