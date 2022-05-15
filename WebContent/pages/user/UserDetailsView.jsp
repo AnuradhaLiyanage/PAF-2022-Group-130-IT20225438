@@ -63,13 +63,6 @@
 	  </tr>
 	  <tbody id="user_table_nikela"></tbody>
 	</table>
-<<<<<<< HEAD
-	
 </div>
-
-
-=======
-	</div>
->>>>>>> branch 'master' of https://github.com/IT20281700/TestServices.git
 </body>
 </html>
