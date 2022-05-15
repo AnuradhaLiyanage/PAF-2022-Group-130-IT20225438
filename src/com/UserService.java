@@ -84,7 +84,7 @@ public class UserService {
 		@Produces(MediaType.TEXT_HTML)
 		// for get method use @PathParam instead of @FormParam
     	public String updateUserDetails(
-    			@FormParam("uid") String uid,
+    			@FormParam("uid") int uid,
 				@FormParam("name") String name,
 				@FormParam("address") String address,
 				@FormParam("accno") int accno,
@@ -95,7 +95,7 @@ public class UserService {
 				@FormParam("username") String username,
 				@FormParam("password") String password) {
 			
-			if (uid.isEmpty() || name.isEmpty() || address.isEmpty() || (Integer.toString(accno)).isEmpty() ||
+			if (uid != 0 || name.isEmpty() || address.isEmpty() || (Integer.toString(accno)).isEmpty() ||
 					nic.isEmpty() || email.isEmpty() || phone.isEmpty() || type.isEmpty() || username.isEmpty() || password.isEmpty()) {
 			return "Update to the details";
 		}  else {

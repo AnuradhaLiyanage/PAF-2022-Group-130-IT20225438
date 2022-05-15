@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="../../Views/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="../../Views/notice.css" />
-<script src="../../Components/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../Views/notices.css" />
+<script src="../../Components/jquery-3.6.0.min.js"></script>
 <script src="../../Components/main.js"></script>
+<script src="../../Components/noticeJS.js"></script>
 <title>Insert title here</title>
 
 	<style>
@@ -32,32 +33,32 @@
 <article class="card-body mx-auto" style="width: 600px;">
 	
 	
-	<form>
-	<h1 class=" d-flex justify-content-center mb-3"" >Notice Details</h1>
+	<form id="insertNotices">
+	<h1 class=" d-flex justify-content-center mb-3" >Notice Details</h1>
     <hr>
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="noticeuid" placeholder="Enter User ID" type="text">
+        <input name="noticeuid" class="form-control" id="noticeuid" placeholder="Enter User ID" type="text">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="noticeusername" placeholder="Enter Username" type="text">
+        <input name="noticeusername" class="form-control" id="noticeusername" placeholder="Enter Username" type="text">
     </div> 
      <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="noticedate" placeholder="Enter Date" type="date">
+        <input name="noticedate" class="form-control" id="noticedate" placeholder="Enter Date" type="date">
     </div> 
      <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" id="noticetime" placeholder="Enter Time" type="time">
+        <input name="noticetime" class="form-control" id="noticetime" placeholder="Enter Time" type="time">
     </div> 
      
     
@@ -66,11 +67,11 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
 		</div>
-		<select class="form-control" id="noticetype">
-			<option value="0">--Select Notice Type--</option>
-			 <option value="1">Payment Details</option>
-			 <option value="2">Bill Details</option>
-			 <option value="3">Red Bills</option>
+		<select class="form-control" id="noticetype" name="noticetype">
+			<option value="">--Select Notice Type--</option>
+			 <option value="Payment Details">Payment Details</option>
+			 <option value="Bill Details">Bill Details</option>
+			 <option value="Red Bills">Red Bills</option>
 		</select>
 	</div>  
 	 <div class="form-group input-group">
@@ -78,11 +79,12 @@
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
         
-        <textarea class="form-control" placeholder="Write notice details description..." rows="5" id="noticemsg" name="text"></textarea>
-    </div>                                      
+        <textarea class="form-control" placeholder="Write notice details description..." rows="5" id="noticemsg" name="noticemsg"></textarea>
+    </div>
+    <div class="noticeError" id="error">Error</div>                                
     <div class="form-group">
-        <button type="submit" id="noticebtnSave" class="btn btn-primary btn-block"> Submit  </button>
-        <input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+    	<input type="hidden" name="findpage" id="findpage" value="noticeinsertpage" />
+        <button type="button" id="noticebtnSave" class="btn btn-primary btn-block">Submit</button>
     </div> <!-- form-group// -->      
                                                                    
 </form>
@@ -93,18 +95,6 @@
 <!--container end.//-->
 </div>
 
-	
-	
- </form>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- </section>
-
 
  <br>
  <div class="row">
@@ -112,6 +102,5 @@
 
  </div>
  </div>
-</div>
 </body>
 </html>

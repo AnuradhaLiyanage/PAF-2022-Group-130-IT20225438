@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="Views/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="Views/user.css" />
-<link rel="stylesheet" type="text/css" href="Views/notice.css" />
+<link rel="stylesheet" type="text/css" href="Views/notices.css" />
 <link rel="stylesheet" type="text/css" href="Views/payments.css" />
 <link rel="stylesheet" type="text/css" href="Views/billing.css" />
 <script src="Components/jquery-3.6.0.min.js"></script>

@@ -122,7 +122,7 @@ public class User {
 
 	
 	
-	public String UpdateUserDetails(String uid, String name, String address, int accno, String nic, String email, String phone,
+	public String UpdateUserDetails(int uid, String name, String address, int accno, String nic, String email, String phone,
 			String type, String username, String password) {
 		// TODO Auto-generated method stub
 		String output="";
@@ -140,18 +140,16 @@ public class User {
 						int result = stmt1.executeUpdate(sql1);
 						
 						if (result > 0) {
-							isUpdated = true;
+							output = "{\"status\":\"success\", \"data\":\"User Details successfully updated!!!\"}";
 						} else {
-							isUpdated = false;
+							output = "{\"status\":\"success\", \"data\":\"User Details not Updated\"}";
 						}
-						
-						output = "<h4>User Details successfully updated!!!</h4>";
 							
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 
-			output="User Details not Updated";
+			output = "{\"status\":\"success\", \"data\":\"User Details not Updated\"}";
 			System.err.println(e.getMessage());
 			
 		}
@@ -183,14 +181,14 @@ public class User {
 				isDeleted = false;
 			}
 			
-			output = "<h4>User Details successfully Deleted!!!</h4>";
+			output = "{\"status\":\"success\", \"data\":\"User Details successfully Deleted!!\"}";
 			System.out.println(output);
 				
 			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			output="User Details not Deleted";
+			output = "{\"status\":\"success\", \"data\":\"User Details not Deleted\"}";
 			System.err.println(e.getMessage());
 			
 		}
@@ -251,9 +249,55 @@ public class User {
 			output="{\"status\":\"error\", \"data\":\"Error while getting all customers details\"}";
 			System.err.println(e.getMessage());
 		}
-		
-		
-		
+		return output;
+	}
+	
+	// view single cus details
+	public String singleUserDetails(int uid) {
+		String output = "";
+		try {
+			// check database connection
+			Connection con = DBConnect.connect();
+			if(con == null) { return "Error while connecting to the database.."; }	
+			
+			//delete user details
+			Statement stmt=con.createStatement();
+			String sql = "SELECT * FROM customer WHERE UserID = "+uid+"";
+			
+			ResultSet rs=stmt.executeQuery(sql);
+			JSONObject json = new JSONObject();
+			
+			if(rs.next()) {
+				int userid = rs.getInt(1);
+				String name = rs.getString(2);
+				String addr = rs.getString(3);
+				int accno = rs.getInt(4);
+				String nic = rs.getString(5);
+				String email = rs.getString(6);
+				String phone = rs.getString(7);
+				String type = rs.getString(8);
+				String uname = rs.getString(9);
+				String pass = rs.getString(10);
+				
+				//write like json
+				json.put("uid", userid);
+				json.put("name", name);
+				json.put("address", addr);
+				json.put("accno", accno);
+				json.put("nic", nic);
+				json.put("email", email);
+				json.put("phone", phone);
+				json.put("type", type);
+				json.put("uname", uname);
+				json.put("pass", pass);
+			}
+			
+			output = "{\"status\":\"success\", \"data\":"+json+"}";
+			
+		} catch (Exception e) {
+			output="{\"status\":\"error\", \"data\":\"Error while getting a customer data to be update\"}";
+			System.err.println(e.getMessage());
+		}
 		
 		return output;
 	}
