@@ -64,18 +64,14 @@ $(document).ready(function(){
 					form.action = "userUpdate.jsp";
 					form.method = "POST";
 					form.id = "updateform";
-					//send uid for update
-					let uidValue = document.createElement("input");
-					uidValue.hidden = true;
-					uidValue.value = data.uid;
-					
+	
 					//update Button
 					let updateBtn = document.createElement("input");
 					updateBtn.classList.add("btn","btn-success","mb-3");
 					updateBtn.value = "UPDATE";
 					updateBtn.type = "button";
 					updateBtn.onclick =(e)=>{
-						senduidForUpdate();
+						senduidForUpdate(data.uid);
 					}
 					
 					//Delete Button
@@ -87,8 +83,6 @@ $(document).ready(function(){
 						DeleteRow(data.uid);
 					}
 					
-					
-					form.appendChild(uidValue);
 					form.appendChild(updateBtn);
 					
 					let updateForm = document.createElement("td");
@@ -122,8 +116,24 @@ $(document).ready(function(){
 })
 
 //send uid for update
-function senduidForUpdate(){
-	$("#updateform").submit();
+function senduidForUpdate(uid){
+	
+	//send uid for update
+	let uidValue = document.createElement("input");
+	uidValue.hidden = true;
+	uidValue.name = "userID";
+	uidValue.value = uid;
+	
+	let form = document.getElementById("updateform");
+	
+	//console.log(form)
+	
+	form.appendChild(uidValue);
+	
+	//$("#updateform").submit();
+	
+	window.location.href = "userUpdate.jsp?uid="+uid;
+	
 }
 
 //delete user function
@@ -149,9 +159,15 @@ function DeleteRow(uid){
 			
 	)
 	function OnDelete(responseText,status){
-		if(status === "success") {
+		var result = JSON.parse(responseText);
+		console.log(result)
+		if(result.status === "success") {
+			console.log(status)
 			alert ("successfull deleted!!!")
 			window.location.reload();	
+		} else {
+			//alert (result.data)
+			//window.location.reload();
 		}
 	}
 }	
@@ -257,13 +273,101 @@ function onInsertComplete(responseText, status) {
 	if(status == "success") {
 		var result = JSON.parse(responseText);
 		if (result.status === "success") {
-			console.log(result.data);
+			alert("You are registered customer now. Use login page.");
+			window.location.replace("/PAF-2022-Group-130/");
 		} else {
-			console.log(result.data);
+			alert(result.data);
 		}
 	}
 }
 
+$(document).ready(() => {
+	
+	if($("#method").val().trim() === "singlecusdetails") {
+		
+		let method = $("#method").val();
+		let uidtobeupdate = $("#uidtobeupdate").val();
+		
+		var dataset = { method, uidtobeupdate };
+		
+		$.ajax(
+			{
+				url:	"/PAF-2022-Group-130/UserAPI",
+				type:	"POST",
+				data: dataset,
+				dataType:	"json",
+				complete:	function(response,status){
+					onSingleUserLoaded(response.responseText,status);
+				}
+			}
+		)
+		
+		function onSingleUserLoaded(responseText, status) {
+			if(status === "success") {
+				var result = JSON.parse(responseText);
+				
+				if(result.status === "success") {
+					console.log(result)
+					userID.value = result.data.uid;
+					cusname.value = result.data.name;
+					cusaddr.value = result.data.address;
+					cusaccno.value = result.data.accno;
+					cusnic.value = result.data.nic;
+					cusemail.value = result.data.email;
+					cuspno.value = result.data.phone;
+					custype.value = result.data.type;
+					cusuname.value = result.data.uname;
+					cuspass.value = result.data.pass;
+				}
+			}
+		}
+		
+	}
+	
+	$("#updateCusBtn").click(function() {
+		let uid = userID.value;
+		let name = cusname.value;
+		let addr = cusaddr.value;
+		let accno = cusaccno.value;
+		let nic = cusnic.value;
+		let email = cusemail.value;
+		let phone = cuspno.value;
+		let type = custype.value;
+		let uname = cusuname.value;
+		let pass = cuspass.value;
+		
+		var updateset = { uid,name, addr, accno, nic, email, phone, type, uname, pass };
+		
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/UserAPI",
+				type:	"PUT",
+				data:	JSON.stringify(updateset),
+				dataType: "json",
+				complete: function(response, status) {
+					onUserUpdateComplete(response.responseText, status);
+				}
+			}
+		)
+		
+		// when updated
+		function onUserUpdateComplete(responseText, status) {
+			if(status == "success") {
+				var result = JSON.parse(responseText);
+				
+				if(result.status == "success") {
+					alert(result.data)
+					window.location.reload();
+				} else {
+					alert(result.data)
+					window.location.reload();
+				}
+			}
+		}
+		
+	})
+	
+})
 
 
 

@@ -1,11 +1,16 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import models.User;
 
@@ -30,6 +35,7 @@ public class UserAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		//get page
 		String method = request.getParameter("method");
 		
 		// clicked button delete
@@ -42,7 +48,7 @@ public class UserAPI extends HttpServlet {
 		
 		
 		// clicked insert button
-		if(method.equals("insert")) {
+		else if(method.equals("insert")) {
 			String name = request.getParameter("cusname");
 			String address = request.getParameter("cusaddress");
 			String accno = request.getParameter("cusaccno");
@@ -59,11 +65,43 @@ public class UserAPI extends HttpServlet {
 			response.getWriter().write(output);
 		}
 		
+		//single user details
+		else if(method.equals("singlecusdetails")) {
+			
+			//get user id to view
+			int uid = Integer.parseInt(request.getParameter("uidtobeupdate"));
+			
+			String output = cus.singleUserDetails(uid);
+			response.getWriter().write(output);
+		}
+		
 	}
 
+	// Converter
+	private static String inputStreamToString(InputStream inputStream) {
+	      Scanner scanner = new Scanner(inputStream, "UTF-8");
+	      return scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
+	  }
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Convert request body to json
+		String jsonString = inputStreamToString(request.getInputStream());
+		JSONObject json = new JSONObject(jsonString);
+		
+		int uid = Integer.parseInt(json.getString("uid"));
+		String name = json.getString("name");
+		String address = json.getString("addr");
+		int accno = Integer.parseInt(json.getString("accno"));
+		String nic = json.getString("nic");
+		String email = json.getString("email");
+		String phone = json.getString("phone");
+		String type = json.getString("type");
+		String uname = json.getString("uname");
+		String pass = json.getString("pass");
+		
+		String output = cus.UpdateUserDetails(uid, name, address, accno, nic, email, phone, type, uname, pass);
+		System.out.println(output);
+		response.getWriter().write(output);
 	}
 
 	
