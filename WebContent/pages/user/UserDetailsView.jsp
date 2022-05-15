@@ -32,7 +32,7 @@
 </style>
 <body>
 
-<a href="../logout.jsp" >logout</a>
+
 
 <!-- use for java script file -->
 <input type="hidden" id="pageselector" value="userdetailspage" />
