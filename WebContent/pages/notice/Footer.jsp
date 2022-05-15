@@ -28,13 +28,14 @@
           <h5 class="text-uppercase mb-4">About company</h5>
 
           <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-            voluptatum deleniti atque corrupti.
+            The Electro grid is the largest electricity company in Sri Lanka. With a market share of nearly 100%,
+             it controls all major functions of electricity generation, transmission, distribution, and retailing in Sri Lanka.
           </p>
 
           <p>
-            Blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas
-            molestias.
+            The Electro Grid is the sole supplier of electrical power in Mauritius. 
+            The mandate of the utility is to prepare and carry out development schemes with the general object of promoting, 
+            coordinating, and improving the generation, transmission, distribution, and sale of electricity.
           </p>
 
           <div class="mt-4">
