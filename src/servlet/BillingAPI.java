@@ -34,8 +34,32 @@ public class BillingAPI extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//check page
+		String page = request.getParameter("page");
 		
+		// view single update details
+		if (page.equals("viewsinglebill")) {
+			String accountNumber = request.getParameter("upaccnumber");
+			
+			String output = billing.billingDetails(accountNumber);
+			response.getWriter().write(output);
+		}
+
+		
+		if(page.equals("billinsertpage")) {
+			// insert details
+			String billinguid = request.getParameter("billinguid");
+			String billingusername = request.getParameter("billingusername");
+			String billingstartdate = request.getParameter("billingstartdate");
+			String billingenddate = request.getParameter("billingenddate");
+			int billingaccountnumber = Integer.parseInt(request.getParameter("billingaccountnumber"));
+			int billingbill = Integer.parseInt(request.getParameter("billno"));
+			int billingunit = Integer.parseInt(request.getParameter("billingunit"));
+			Float billingamount = Float.parseFloat(request.getParameter("billingamount"));
+			
+			String output = billing.InsertBillingDetails(billinguid, billingusername, billingstartdate, billingenddate, billingaccountnumber, billingbill, billingunit, billingamount);
+			response.getWriter().write(output);
+			
+		}
 		
 	}
 
@@ -52,18 +76,15 @@ public class BillingAPI extends HttpServlet {
 		JSONObject json = new JSONObject(jsonString);
 		
 		//parameters
-		
-		String userid = json.getString("userid");
 		String name = json.getString("name");
-		String startdate = json.getString("startdate");
-		String enddate = json.getString("enddate");
+		String startdate = json.getString("sdate");
+		String enddate = json.getString("edate");
 		int accno = json.getInt("accno");
-		int billno = json.getInt("billno");
-		int noofunits = json.getInt("noofunits");
+		int noofunits = json.getInt("billunit");
 		Float billamount = Float.parseFloat(json.getString("billamount"));
 		
 		
-		String output = billing.UpdateBillingDetails(userid, name, startdate, enddate, accno, billno, noofunits, billamount);
+		String output = billing.UpdateBillingDetails(name, startdate, enddate, accno, noofunits, billamount);
 		response.getWriter().write(output);
 	}
 

@@ -8,4 +8,19 @@
 }
 
 
+.pfld {
+	margin-top: 5px;
+}
+
+#billinserterror{
+	color: red;
+	font-weight: bold;
+}
+
+.pmf:focus{
+	outline-color: red;
+	outline-style: solid;
+    border-color: red;
+    box-shadow: 0 0 0 0.25rem rgb(255 0 0 / 25%);
+}
 

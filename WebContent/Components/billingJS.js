@@ -4,33 +4,54 @@
 	 $("#alertSuccess").hide();
 	 $("#alertError").hide();
 	 
-	 $.ajax(
-		{
-			url: "/PAF-2022-Group-130/BillingAPI",
-			type: "POST",
-			data: $("#sendAccountNumber").serialize(),
-			dataType: "text",
-			complete: function(response,status)
-			{
-				//onComplete(response.responseText,status)
-			}
-		}
+	 // viewing single bill for update
+	 if($("#page").val() === "viewsinglebill") {
 		
-	)
+			$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type: "POST",
+				data: $("#sendBillID").serialize(),
+				dataType: "text",
+				complete: function(response,status)
+				{
+					if(status == "success") {
+						var result = JSON.parse(response.responseText);
+						if(result.status == "success") {
+							console.log(result.data)
+							billinguserid.value = result.data.uid;
+							billingname.value = result.data.name;
+							billingsdate.value = result.data.sdate;
+							billingedate.value = result.data.edate;
+							billingaccno.value = result.data.accno;
+							billingbillno.value = result.data.billnum;
+							billingunit.value = result.data.units;
+							billingamount.value = result.data.billamount;
+						}
+					}
+				}
+			}
+			
+		)		
+	}
 	
 		
 $(document).ready(function(){
 	
-	$.ajax(
-		{
-			url: "/PAF-2022-Group-130/BillingAPI",
-			type:	"GET",
-			dataType:	"text",
-			complete:	function(response,status){
-				onBillingLoaded(response.responseText,status);
+	 if($("#page").val() === "viewallbills") {
+		
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type:	"GET",
+				dataType:	"text",
+				complete:	function(response,status){
+					onBillingLoaded(response.responseText,status);
+				}
 			}
-		}
-	)
+		)
+		
+	}
 	
 		//function for get all billing details
 function onBillingLoaded(response, status) {
@@ -130,13 +151,13 @@ function senduidForUpdate(accNo){
 	let uidValue = document.createElement("input");
 	uidValue.hidden = true;
 	uidValue.id = "uidvalue"
-	uidValue.name = "uidtobeupdate"
+	uidValue.name = "accnotobeupdate"
 	uidValue.value = accNo;
 	
 	let form = document.getElementById("updateform");
 	
 	form.appendChild(uidValue)
-	
+
 	$("#updateform").submit();
 }
 
@@ -169,17 +190,15 @@ function DeleteRow(accno){
 // update
 $(document).ready( ()=> {
 	
-	$("#btnnoticeUpdate").click(function() {
-		let userID = $("#billinguserid").val();
+	$("#btnUpdate").click(function() {
 		let name = $("#billingname").val();
 		let sdate = $("#billingsdate").val();
 		let edate = $("#billingedate").val();
 		let accno = $("#billingaccno").val();
-		let billno = $("#billingbillno").val();
 		let billunit = $("#billingunit").val();
 		let billamount = $("#billingamount").val();
 		
-		var updateSet = { userID, name, sdate, edate, accno, billno, billunit, billamount }
+		var updateSet = {  name, sdate, edate, accno, billunit, billamount }
 		
 		$.ajax(
 			{
@@ -195,6 +214,7 @@ $(document).ready( ()=> {
 		
 		// when updated
 		function onUpdateComplete(responseText, status) {
+			console.log(responseText)
 			if(status == "success") {
 				var result = JSON.parse(responseText);
 				
@@ -211,130 +231,101 @@ $(document).ready( ()=> {
 
 })
 
+$("#billinserterror").hide();
 
 //function for button make a payment
-$("#noticebtnSave").click(function() {
-	let noticeuid = document.getElementById("noticeuid");
-	let noticeusername = document.getElementById("noticeusername");
-	let noticedate = document.getElementById("noticedate");
-	let noticetime = document.getElementById("noticetime");
-	let noticetype = document.getElementById("noticetype");
-	let noticemsg = document.getElementById("noticemsg");
+$("#billingbtnSave").click(function() {
+	
+	let billinguid = document.getElementById("billinguid");
+	let billingusername = document.getElementById("billingusername");
+	let billingstartdate = document.getElementById("billingstartdate");
+	let billingenddate = document.getElementById("billingenddate");
+	let billingaccountnumber = document.getElementById("billingaccountnumber");
+	let billno = document.getElementById("billno");
+	let billingunit = document.getElementById("billingunit");
+	let billingamount = document.getElementById("billingamount");
 	
 	// payment method form validations
-	if(noticeuid.value === "") {
-		$("#pmethoderror").text("Enter User ID").show();
-		noticeuid.classList.add("pmf")
-		noticeuid.focus();
+	if(billinguid.value === "") {
+		$("#billinserterror").text("Enter User ID").show();
+		billinguid.classList.add("pmf")
+		billinguid.focus();
 	}
-	else if(noticeusername.value === "") {
-		noticeuid.classList.remove("pmf")
-		noticeusername.classList.add("pmf")
-		noticeusername.focus();
-		$("#pmethoderror").text("Enter User Name").show();
+	else if(billingusername.value === "") {
+		billinguid.classList.remove("pmf")
+		billingusername.classList.add("pmf")
+		billingusername.focus();
+		$("#billinserterror").text("Enter User Name").show();
 	}
-	else if(noticedate.value === "") {
-		noticeusername.classList.remove("pmf")
-		noticedate.classList.add("pmf")
-		noticedate.focus();
-		$("#pmethoderror").text("Enter Date").show();
+	else if(billingstartdate.value === "") {
+		billingusername.classList.remove("pmf")
+		billingstartdate.classList.add("pmf")
+		billingstartdate.focus();
+		$("#billinserterror").text("Enter Start Date").show();
 	}
-	else if(noticetime.value === "") {
-		noticedate.classList.remove("pmf")
-		noticetime.classList.add("pmf")
-		noticetime.focus();
-		$("#pmethoderror").text("Enter Time").show();
+	else if(billingenddate.value === "") {
+		billingstartdate.classList.remove("pmf")
+		billingenddate.classList.add("pmf")
+		billingenddate.focus();
+		$("#billinserterror").text("Enter End Date").show();
 	}
-	else if(noticetype.value === "") {
-		noticetype.classList.add("pmf")
-		noticetype.focus();
-		$("#pmethoderror").text("Enter Notice Type").show();
+	else if(billingaccountnumber.value === "") {
+		billingenddate.classList.remove("pmf")
+		billingaccountnumber.classList.add("pmf")
+		billingaccountnumber.focus();
+		$("#billinserterror").text("Enter Account number").show();
 	}
-	else if(noticemsg.value === "") {
-		noticetype.classList.remove("pmf")
-		noticemsg.classList.add("pmf")
-		noticemsg.focus();
-		$("#pmethoderror").text("Enter Notice Description").show();
+	else if(billno.value === "") {
+		billingaccountnumber.classList.remove("pmf")
+		billno.classList.add("pmf")
+		billno.focus();
+		$("#billinserterror").text("Enter Bill Number").show();
 	}
-	else if(pcardexpDate.value.length === 5) {
+	else if(billingunit.value === "") {
+		billno.classList.remove("pmf")
+		billingunit.classList.add("pmf")
+		billingunit.focus();
+		$("#billinserterror").text("Enter units").show();
+	}
+	
+	else if(billingamount.value === "") {
+		billingunit.classList.remove("pmf")
+		billingamount.classList.add("pmf")
+		billingamount.focus();
+		$("#billinserterror").text("Enter Amount").show();
+	}
+	else {
 
-			if(pcardexpDate.value.charAt(0) != "0" && pcardexpDate.value.charAt(0) != "1") {
-				pcardexpDate.focus();
-				$("#pmethoderror").text("Wrong month").show();
-			}
-			else{
-				if(pcardexpDate.value.charAt(0) === "1" && pcardexpDate.value.charAt(1) > "2") {
-					pcardexpDate.focus();
-					$("#pmethoderror").text("Wrong month").show();
-				}
-				else{
-					if(pcardexpDate.value.charAt(3) <"2" || pcardexpDate.value.charAt(4) <"2") {
-						pcardexpDate.focus();
-						$("#pmethoderror").text("Wrong year").show();
-					}
-					else {
-						pcardexpDate.classList.remove("pmf")
-						$("#pmethoderror").hide();
-						// show saving loader
-						$("#loaderBG").show();
-						// get values by id
-						let uid = $("#noticeuid").val();
-						let cardusername = $("#noticeusername").val();
-						let carddate = $("#noticedate").val();
-						let cardtime = $("#noticetime").val();
-						let cardtype = $("#noticetype").val();
-						let cardnotice = $("#noticemsg").val();
-						let insert = "insert";
-						
-						var dataset = { uid, cardusername, carddate, cardtime, cardtype, cardnotice, insert };
-						
-						$.ajax(
-							{
-								url:	"/PAF-2022-Group-130/NoticeAPI",
-								type:	"POST",
-								data:	dataset,
-								dataType:	"JSON",
-								complete:	function(response, status) {
-									onInsertComplete(response.responseText, status);
-								}
-							}
-						)
-						
-						function onInsertComplete(response, status) {
-							if(status === "success") {
-								var result = JSON.parse(response);
-								console.log(result);
-								if(result.status.trim() === "success") {
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										$("#loader").hide();
-										$("#payment-accept").show();
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2000); // 👈️ time in milliseconds
-									
-									// redirecting to home page after payment success;
-									setTimeout(() => {
-										// hide saving loader after few seconds
-										
-										window.location = "../../";
-									
-									  // 👇️ hides element (still takes up space on page)
-									  // box.style.visibility = 'hidden';
-									}, 2500); // 👈️ time in milliseconds
-
-								}
-								
-								else {
-									// payment unsuccess
-								}
-							}
-						}
-					}
+		// no errors
+		billingamount.classList.remove("pmf")
+		$("#billinserterror").hide();
+		
+		// data inserting
+		$.ajax(
+			{
+				url: "/PAF-2022-Group-130/BillingAPI",
+				type: "POST",
+				data: $("#insertBills").serialize(),
+				dataType: "text",
+				complete: function(response, status) {
+					onInsertComplete(response.responseText, status);
 				}
 			}
+		)
+		
+		// when insert request complete
+		function onInsertComplete(responseText, status) {
+			console.log(responseText)
+			if(status == "success") {
+				var result = JSON.parse(responseText);
+				if (result.status == "success") {
+					alert(result.data);
+					window.location = "../user/UserDetailsView.jsp";
+				} else {
+					alert(result.data);
+				}
+			}
+		}	
 			
 	}
 	

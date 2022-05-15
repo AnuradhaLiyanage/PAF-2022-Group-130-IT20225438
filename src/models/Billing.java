@@ -11,8 +11,8 @@ import database.DBConnect;
 
 public class Billing {
 	
-	public String InsertBillingDetails(String uid, String name, String sdate, String edate, String acconumber, String bilnumber,
-			String unit, Float amount ) {
+	public String InsertBillingDetails(String uid, String name, String sdate, String edate, int acconumber, int bilnumber,
+			int unit, Float amount ) {
 		// TODO Auto-generated method stub
 		String output="";
 		
@@ -27,15 +27,15 @@ public class Billing {
 		    int rs=stmt.executeUpdate(sql);
 		    
 		    if(rs>0) {
-		    	output="<h4>Billing Details Successfully Inserted</h4>";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Successfully Inserted!\"}";
 		    }else {
-		    	output="Billings Details not Insert";
+		    	output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 		    }
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			
-			output="Billing Details not Insert";
+			output = "{\"status\":\"success\", \"data\":\"Bill Details Not Inserted!!\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -44,7 +44,7 @@ public class Billing {
 	
 	//update billing details
 	
-	public String UpdateBillingDetails(String uid, String name, String sdate, String edate, int acconumber, int bilnumber, int unit,
+	public String UpdateBillingDetails(String name, String sdate, String edate, int acconumber, int unit,
 			Float amount ) {
 		// TODO Auto-generated method stub
 		String output="";
@@ -58,7 +58,7 @@ public class Billing {
 						Statement stmt1 = con.createStatement();
 						
 						
-						String sql1 = "update billing set UserID='"+uid+"', Name='"+name+"', StartDate='"+sdate+"', EndDate='"+edate+"', BillNumber='"+bilnumber+"', NoofUnit='"+unit+"', BillAmount='"+amount+"' where AccountNumber="+acconumber+"";					
+						String sql1 = "update billing set Name='"+name+"', StartDate='"+sdate+"', EndDate='"+edate+"', NoofUnit='"+unit+"', BillAmount='"+amount+"' where AccountNumber="+acconumber+"";					
 						int result = stmt1.executeUpdate(sql1);
 						
 						if (result > 0) {
@@ -66,9 +66,6 @@ public class Billing {
 						} else {
 							output = "{\"status\":\"error\", \"data\":\"Billing Details Not Updated!\"}";
 						}
-						
-						output = "<h4>Billing Details successfully updated!!!</h4>";
-							
 			
 		} catch (Exception e) {
 			output = "{\"status\":\"error\", \"data\":\"Notice Details Not Updated!\"}";
@@ -172,39 +169,46 @@ public class Billing {
 
 
 	//html table open
-	output="<table border='1'>"
-	+ "<tr>"
-	+ "<th>UserID</th>"
-	+ "<th>Name</th>"
-	+ "<th>StartDate</th>"
-	+ "<th>EndDate</th>"
-	+ "<th>AccountNumber</th>"
-	+ "<th>BillNumber</th>"
-	+ "<th>NoofUnit</th>"
-	+ "<th>BillAmount</th>"
-	+ "</tr>"
-	+ "<tr>"
-	+ "<td>"+UserID+"</td>"
-	+ "<td>"+Name+"</td>"
-	+ "<td>"+StartDate+"</td>"
-	+ "<td>"+EndDate+"</td>"
-	+ "<td>"+AccountNumber+"</td>"
-	+ "<td>"+BillNumber+"</td>"
-	+ "<td>"+NoofUnit+"</td>"
-	+ "<td>"+BillAmount+"</td>"
-	+ "</tr>"
-	+ "</table>";
+//	output="<table border='1'>"
+//	+ "<tr>"
+//	+ "<th>UserID</th>"
+//	+ "<th>Name</th>"
+//	+ "<th>StartDate</th>"
+//	+ "<th>EndDate</th>"
+//	+ "<th>AccountNumber</th>"
+//	+ "<th>BillNumber</th>"
+//	+ "<th>NoofUnit</th>"
+//	+ "<th>BillAmount</th>"
+//	+ "</tr>"
+//	+ "<tr>"
+//	+ "<td>"+UserID+"</td>"
+//	+ "<td>"+Name+"</td>"
+//	+ "<td>"+StartDate+"</td>"
+//	+ "<td>"+EndDate+"</td>"
+//	+ "<td>"+AccountNumber+"</td>"
+//	+ "<td>"+BillNumber+"</td>"
+//	+ "<td>"+NoofUnit+"</td>"
+//	+ "<td>"+BillAmount+"</td>"
+//	+ "</tr>"
+//	+ "</table>";
+	
+	JSONObject json = new JSONObject();
+	json.put("uid", UserID);
+	json.put("name", Name);
+	json.put("sdate", StartDate);
+	json.put("edate", EndDate);
+	json.put("accno", AccountNumber);
+	json.put("billnum", BillNumber);
+	json.put("units", NoofUnit);
+	json.put("billamount", BillAmount);
 
 
-
+	output = "{\"status\":\"success\", \"data\":"+json+"}";
 
 
 	} catch (Exception e) {
 	// TODO: handle exception
-
-
-
-	output="Bill not Found";
+	output = "{\"status\":\"success\", \"data\":\"Bill not Found\"}";
 	System.err.println(e.getMessage());
 	}
 	return output;

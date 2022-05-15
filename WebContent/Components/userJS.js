@@ -284,7 +284,7 @@ function onInsertComplete(responseText, status) {
 
 $(document).ready(() => {
 	
-	if($("#method").val().trim() === "singlecusdetails") {
+	if($("#method").val() === "singlecusdetails") {
 		
 		let method = $("#method").val();
 		let uidtobeupdate = $("#uidtobeupdate").val();
