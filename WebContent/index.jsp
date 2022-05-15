@@ -13,14 +13,12 @@
 <script src="Components/main.js"></script>
 <title>Login</title>
 <style>
-#intro {
-background-image: url("https://wallpapercave.com/wp/wp2857841.png");
-height: 100%;
-}
+
 </style>
 </head>
 <body>
-	
+
+
 
 	<%
 		if (session.getAttribute("Username") != null) {
@@ -77,15 +75,16 @@ height: 100%;
                  
                 </form>
 </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  
-</section>
 
+</section>
+  </div>
 <!-- Footer -->
 
 

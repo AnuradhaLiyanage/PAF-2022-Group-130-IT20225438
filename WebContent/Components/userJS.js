@@ -1,6 +1,6 @@
 //Get All user Details
 $(document).ready(function(){
-	
+
 	$("#signuperror").hide();
 	
 	// load on UserDetailsView.jsp page only
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		)	
 	}
 	// view oncomplete
-	function OnComplete(response,status) {
+	function OnComplete(response,status) { 
 		if(status == "success"){
 			var result = JSON.parse(response);
 			if(result.status.trim()== "success"){
